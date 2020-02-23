@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+      xmlns:th="http://www.thymeleaf.org">
+<nav id="mainnav-container" role="navigation" th:fragment="navigation">
+    <div id="mainnav">
+        <div id="mainnav-menu-wrap">
+            <div class="nano">
+                <div class="nano-content">
+
+                    <!--Profile Widget-->
+                    <!--================================-->
+                    <div class="mainnav-profile" id="mainnav-profile">
+                        <div class="profile-wrap text-center">
+                            <div class="pad-btm">
+                                <img alt="Profile Picture" class="img-circle img-md"
+                                     src="/static/img/profile-photos/1.png">
+                            </div>
+                            <a aria-expanded="false" class="box-block" data-toggle="collapse" href="#profile-nav">
+                                            <span class="pull-right dropdown-toggle">
+                                                <i class="dropdown-caret"></i>
+                                            </span>
+                                <p class="mnp-name" th:text="${session.user.username}">${sessionScope.user.username}</p>
+                                <span class="mnp-desc" th:text="${session.user.email}">${sessionScope.user.email}</span>
+                            </a>
+                        </div>
+                        <div class="collapse list-group bg-trans" id="profile-nav">
+                            <a class="list-group-item" href="../jsp/index.jsp">
+                                <i class="demo-pli-male icon-lg icon-fw"></i> 个人信息
+                            </a>
+                            <a class="list-group-item" href="../jsp/index.jsp">
+                                <i class="demo-pli-gear icon-lg icon-fw"></i> 设置
+                            </a>
+                            <a class="list-group-item" href="../jsp/index.jsp">
+                                <i class="demo-pli-information icon-lg icon-fw"></i> 帮助
+                            </a>
+                            <a class="list-group-item" href="/link/logout">
+                                <i class="demo-pli-unlock icon-lg icon-fw"></i> 注销
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!--Shortcut buttons-->
+                    <!--================================-->
+                    <div class="hidden" id="mainnav-shortcut">
+                        <ul class="list-unstyled shortcut-wrap">
+                            <li class="col-xs-3" data-content="My Profile">
+                                <a class="shortcut-grid" href="../jsp/index.jsp">
+                                    <div class="icon-wrap icon-wrap-sm icon-circle bg-mint">
+                                        <i class="demo-pli-male"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="col-xs-3" data-content="Messages">
+                                <a class="shortcut-grid" href="../jsp/index.jsp">
+                                    <div class="icon-wrap icon-wrap-sm icon-circle bg-warning">
+                                        <i class="demo-pli-speech-bubble-3"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="col-xs-3" data-content="Activity">
+                                <a class="shortcut-grid" href="../jsp/index.jsp">
+                                    <div class="icon-wrap icon-wrap-sm icon-circle bg-success">
+                                        <i class="demo-pli-thunder"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="col-xs-3" data-content="Lock Screen">
+                                <a class="shortcut-grid" href="../jsp/index.jsp">
+                                    <div class="icon-wrap icon-wrap-sm icon-circle bg-purple">
+                                        <i class="demo-pli-lock-2"></i>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--================================-->
+                    <!--End shortcut buttons-->
+
+
+                    <ul class="list-group" id="mainnav-menu">
+                        <li class="<%--active-sub active--%>" id="shouye">
+                            <a th:href="@{/link/toindex}">
+                                <i class="demo-pli-home"></i>
+                                <span class="menu-title">首页</span>
+                            </a>
+                        </li>
+                        <li class="list-divider"></li>
+                        <!--                        <shiro:hasPermission name="javascript:void(0)">-->
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="myfont icon-yuanquyunwei"></i>
+                                <span class="menu-title">系统管理</span>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse in">
+                                <!--                                    <shiro:hasPermission name="../link/tosysuser">-->
+                                <li><a shiro:hasPermission="../link/tosysuser" th:href="@{/link/tosysuser}">用户管理</a>
+                                </li>
+                                <!--                                    </shiro:hasPermission>-->
+                                <!--                                    <shiro:hasPermission name="../link/tosysrole">-->
+                                <li><a shiro:hasPermission="../link/tosysrole" th:href="@{/link/tosysrole}">角色管理</a>
+                                </li>
+                                <!--                                    </shiro:hasPermission>-->
+                                <!--                                    <shiro:hasPermission name="../link/tosysresource">-->
+                                <li><a shiro:hasPermission="../link/tosysresource"
+                                       th:href="@{/link/tosysresource}">资源管理</a></li>
+                                <!--                                    </shiro:hasPermission>-->
+                                <!--                                    <shiro:hasPermission name="../link/tosyspower">-->
+                                <li><a shiro:hasPermission="../link/tosyspower" th:href="@{/link/tosyspower}">权限管理</a>
+                                </li>
+                                <!--                                    </shiro:hasPermission>-->
+                                <li><a  th:href="@{../link/tologs}">日志查看</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="list-divider"></li>
+                        <!--                        </shiro:hasPermission>-->
+                    </ul>
+
+
+                    <!--Widget-->
+                    <!--================================-->
+                    <div class="mainnav-widget">
+
+                        <!-- Show the button on collapsed navigation -->
+                        <div class="show-small">
+                            <a data-target="#demo-wg-server" data-toggle="menu-widget" href="../jsp/index.jsp">
+                                <i class="demo-pli-monitor-2"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <!--================================-->
+                    <!--End widget-->
+
+                </div>
+            </div>
+        </div>
+        <!--================================-->
+        <!--End menu-->
+
+    </div>
+</nav>
+</html>
+<script>
+    $(function () {
+        $("#mainnav-menu a").each(function () {
+            var ahref = $(this).attr("href").substring($(this).attr("href").lastIndexOf("/"));
+
+
+            if (ahref.indexOf("toindex") != -1) {
+                $("#shouye").attr("class", "active-sub active");
+                return
+            }
+            var lhref1 = window.location.href;
+            var lhref = lhref1.substring(lhref1.lastIndexOf("/"))
+
+            if (lhref == ahref) {
+                $(this).parent().attr("class", "active-link");
+                $(this).parent().parent().parent().attr("class", "active-sub active");
+                $("#shouye").removeAttr("class");
+                return;
+            }
+        })
+    })
+</script>

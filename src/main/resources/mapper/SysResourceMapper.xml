@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootthymeleaf.dao.SysResourceMapper">
+
+    <!--<resultMap id="userResult" type="com.example.springbootthymeleaf.pojo.User">
+        <result property="register_address" column="registerAddress"/>
+        <result property="register_time" column="registerTime"/>
+        <result property="last_login_time" column="lastLoginTime"/>
+        <result property="login_count" column="loginCount"/>
+        <result property="login_time" column="loginTime"/>
+    </resultMap>-->
+
+    <select id="getresource" resultType="resource">
+       select * from resource
+    </select>
+
+    <delete id="deleteResourceById">
+        delete from resource where reid=#{reid}
+    </delete>
+
+    <update id="updateResourceMess">
+        update resource set
+        <if test="resourcename!=null">
+            resourcename=#{resourcename}
+        </if>
+        where reid=#{reid}
+    </update>
+
+    <select id="getSelectVal" resultType="resource">
+        select * from resource where rejigouid=#{realRejigouId}
+    </select>
+
+    <insert id="saveResource">
+        insert into resource(resourcename, rejigouid, reopjigouid)
+        values(#{resourcename}, #{rejigouid}, #{reopjigouid})
+    </insert>
+    <select id="getRoleLinkByRoleId" resultType="resource">
+        SELECT
+	re.*
+FROM
+	resource re
+WHERE
+	re.reid IN ( SELECT power.reid	FROM power WHERE power.rid = #{roleid} )
+    </select>
+
+
+</mapper>
+

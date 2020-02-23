@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootthymeleaf.dao.SysRoleMapper">
+
+    <sql id="coulms">
+	    <![CDATA[
+               rid,rname,rbianma,oid
+        ]]>
+	</sql>
+    <resultMap id="userResult" type="com.example.springbootthymeleaf.pojo.User">
+        <result property="register_address" column="registerAddress"/>
+        <result property="register_time" column="registerTime"/>
+        <result property="last_login_time" column="lastLoginTime"/>
+        <result property="login_count" column="loginCount"/>
+        <result property="login_time" column="loginTime"/>
+    </resultMap>
+
+    <select id="getRoles" resultType="com.example.springbootthymeleaf.pojo.Role">
+        select
+                r.rid as rid
+                ,r.rname as rname
+                ,(select count(*) from users u where u.roleid=r.rid) as ruser
+                ,r.rbianma as rbianma
+                ,r.oid as oid from role r
+    </select>
+    <select id="getroleuser" resultMap="userResult">
+        select * from users where roleid=#{rid}
+    </select>
+
+    <delete id="deleteRole">
+        delete from role where rid=#{rid}
+    </delete>
+
+    <update id="updateRole">
+        update role set rname=#{rname} where rid=#{rid}
+    </update>
+
+    <insert id="saveRole">
+        insert into role(rname,rbianma) values(#{rname},#{rbianma})
+    </insert>
+
+
+
+</mapper>
+

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootthymeleaf.dao.SysUserMapper">
+
+    <sql id="coulms">
+	    <![CDATA[
+
+                uid,username,password,email,phone,registerAddress,registerTime,loginTime,lastLoginTime,loginCount,signed,roleid,organizeid,
+                opid
+
+        ]]>
+	</sql>
+    <sql id="listWhere">
+        <if test="uid != null ">
+            and uid = #{uid}
+        </if>
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+        <if test="password != null and password != ''">
+            and password = #{password}
+        </if>
+        <if test="email != email ">
+            and email = #{email}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone = #{phone}
+        </if>
+        <if test="registerAddress != null and registerAddress != ''">
+            and registerAddress = #{registerAddress}
+        </if>
+        <if test="registerTime != null and registerTime != ''">
+            and registerTime = #{registerTime}
+        </if>
+        <if test="loginTime != null and loginTime != ''">
+            and loginTime = #{loginTime}
+        </if>
+        <if test="lastLoginTime != null and lastLoginTime != ''">
+            and lastLoginTime = #{lastLoginTime}
+        </if>
+        <if test="loginCount != null and loginCount != ''">
+            and loginCount = #{loginCount}
+        </if>
+        <if test="signed != null and signed != ''">
+            and signed = #{signed}
+        </if>
+        <if test="roleid != null and roleid != ''">
+            and roleid = #{roleid}
+        </if>
+        <if test="organizeid != null and organizeid != ''">
+            and organizeid = #{organizeid}
+        </if>
+        <if test="opid != null and opid != ''">
+            and opid = #{opid}
+        </if>
+    </sql>
+    <resultMap id="userResult" type="com.example.springbootthymeleaf.pojo.User">
+        <result property="register_address" column="registerAddress"/>
+        <result property="register_time" column="registerTime"/>
+        <result property="last_login_time" column="lastLoginTime"/>
+        <result property="login_count" column="loginCount"/>
+        <result property="login_time" column="loginTime"/>
+    </resultMap>
+
+    <select id="getSysUsers" resultMap="userResult">
+        select
+        <include refid="coulms"></include>
+        from users
+    </select>
+
+    <update id="updateUserMess">
+        update users
+        set username=#{username},
+            password=#{password},
+            email=#{email},
+            phone=#{phone},
+            signed=#{signed}
+        where uid=#{uid}
+
+            <!--<if test="username != null and username != ''">
+                username,
+            </if>
+
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="email != null ">
+                email,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="signed != null and signed != ''">
+                signed,
+            </if>
+            <if test="username != null and username != ''">
+                #{username},
+            </if>
+            <if test="password != null ">
+                #{password},
+            </if>
+            <if test="email != null ">
+                #{email},
+            </if>
+            <if test="phone != null ">
+                #{phone},
+            </if>
+            <if test="signed != null ">
+                #{signed},
+            </if>
+        where uid=#{uid}-->
+    </update>
+    <delete id="deleteUserMess">
+        delete from users where uid=#{uid}
+    </delete>
+
+    <insert id="addUserMess">
+   /* insert into users(username, password, email, phone, registerAddress,
+    registerTime, loginTime, lastLoginTime, loginCount, signed, roleid, organizeid, opid)
+    values (#{username},#{password},#{email},#{phone},#{register_address},#{register_time},
+    #{login_time},#{last_login_time},#{login_count},#{signed},#{roleid},#{organizeid},#{opid})*/
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+
+            <if test="password != null">
+                password,
+            </if>
+            <if test="email != null ">
+                email,
+            </if>
+            <if test="phone != null ">
+                phone,
+            </if>
+            <if test="signed != null ">
+                signed,
+            </if>
+            <if test="registerAddress != null">
+                registerAddress,
+            </if>
+            <if test="registerTime != null">
+                registerTime,
+            </if>
+            <if test="loginTime != null">
+                loginTime,
+            </if>
+            <if test="lastLoginTime != null">
+                lastLoginTime,
+            </if>
+            <if test="loginCount != null">
+                loginCount,
+            </if>
+            <if test="roleid != null">
+                roleid,
+            </if>
+            <if test="organizeid != null">
+                organizeid,
+            </if>
+            <if test="opid != null">
+                opid,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null ">
+                #{password},
+            </if>
+            <if test="email != null ">
+                #{email},
+            </if>
+            <if test="phone != null ">
+                #{phone},
+            </if>
+            <if test="signed != null ">
+                #{signed},
+            </if>
+            <if test="Register_address != null">
+                #{register_address},
+            </if>
+            <if test="register_time != null">
+                #{register_time},
+            </if>
+            <if test="login_time != null">
+                #{login_time},
+            </if>
+            <if test="last_login_time != null">
+                #{last_login_time},
+            </if>
+            <if test="login_count != null">
+                #{login_count},
+            </if>
+            <if test="roleid != null">
+                #{roleid},
+            </if>
+            <if test="organizeid != null">
+                #{organizeid},
+            </if>
+            <if test="opid != null">
+                #{opid},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
+

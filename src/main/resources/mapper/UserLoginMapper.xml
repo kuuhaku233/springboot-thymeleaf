@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootthymeleaf.dao.UserLoginMapper">
+    <resultMap id="userResult" type="com.example.springbootthymeleaf.pojo.User">
+        <result property="register_address" column="registerAddress"/>
+        <result property="register_time" column="registerTime"/>
+        <result property="last_login_time" column="lastLoginTime"/>
+        <result property="login_count" column="loginCount"/>
+        <result property="login_time" column="loginTime"/>
+    </resultMap>
+    <select id="userLogin" resultMap="userResult">
+         select * from users where username=#{username} and password=#{password}
+    </select>
+    <select id="findByUsername" resultMap="userResult">
+        select * from users where username=#{username}
+    </select>
+    <!--<resultMap id="BaseResultMap" type="com.zydsj.shiro.demoshiro.po.User">
+        <id column="id" property="id"/>
+        <result property="userName" column="userName"/>
+        <result property="passWord" column="passWord"/>
+        <result property="salt" column="salt"/>
+        <result property="role_id" column="role_id"/>
+    </resultMap>-->
+    <!--<sql id="BaseColumnList">
+	    <![CDATA[
+
+			id,
+			userName,
+			passWord,
+			salt,
+			role_id
+
+        ]]>
+	</sql>
+
+    <sql id="listWhere">
+        <if test="id != null ">
+            and id = #{id}
+        </if>
+        <if test="userName != null and userName != ''">
+            and userName = #{userName}
+        </if>
+        <if test="passWord != null and passWord != ''">
+            and passWord = #{passWord}
+        </if>
+        <if test="salt != salt ">
+            and add_date = #{addDate}
+        </if>
+        <if test="role_id != null and role_id != ''">
+            and flag = #{flag}
+        </if>
+    </sql>-->
+    <insert id="getRegister">
+         insert into users(username, password, email, phone, registerAddress,
+        registerTime, loginTime, lastLoginTime, loginCount, signed, roleid, organizeid, opid,salt)
+        values (#{username},#{password},#{email},#{phone},#{register_address},#{register_time},
+        #{login_time},#{last_login_time},#{login_count},#{signed},#{roleid},#{organizeid},#{opid},#{salt})
+        <!--insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="email != null ">
+                email,
+            </if>
+            <if test="phone != null ">
+                phone,
+            </if>
+            <if test="signed != null ">
+                signed,
+            </if>
+            <if test="register_address != null">
+                registerAddress,
+            </if>
+            <if test="register_time != null">
+                registerTime,
+            </if>
+            <if test="login_time != null">
+                loginTime,
+            </if>
+            &lt;!&ndash;<if test="last_login_time != null">
+                lastLoginTime,
+            </if>&ndash;&gt;
+            <if test="login_count != null">
+                loginCount,
+            </if>
+            <if test="roleid != null">
+                roleid,
+            </if>
+            <if test="organizeid != null">
+                organizeid,
+            </if>
+            <if test="opid != null">
+                opid,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null ">
+                #{password},
+            </if>
+            <if test="email != null ">
+                #{email},
+            </if>
+            <if test="phone != null ">
+                #{phone},
+            </if>
+            <if test="signed != null ">
+                #{signed},
+            </if>
+            <if test="register_address != null">
+                #{register_address},
+            </if>
+            <if test="register_time != null">
+                #{register_time},
+            </if>
+            <if test="login_time != null">
+                #{login_time},
+            </if>
+           &lt;!&ndash; <if test="last_login_time != null">
+                ${last_login_time},
+            </if>&ndash;&gt;
+            <if test="login_count != null">
+                ${login_count},
+            </if>
+            <if test="roleid != null">
+                #{roleid},
+            </if>
+            <if test="organizeid != null">
+                #{organizeid},
+            </if>
+            <if test="opid != null">
+                #{opid},
+            </if>
+        </trim>-->
+    </insert>
+
+
+</mapper>
+
