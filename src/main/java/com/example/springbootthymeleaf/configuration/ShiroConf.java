@@ -31,14 +31,14 @@ public class ShiroConf {
          *  role   该资源必须得到角色权限才能访问
          */
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/login", "anon");
-        filterMap.put("/register", "anon");
+//        filterMap.put("/login", "anon");
+//        filterMap.put("/register", "anon");
         filterMap.put("/link/register", "anon");
         filterMap.put("/link/*", "authc");
-        filterMap.put("/system/*", "authc");
+//        filterMap.put("/system/*", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         //设置拦截后的跳转页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/");
 
 
         return shiroFilterFactoryBean;

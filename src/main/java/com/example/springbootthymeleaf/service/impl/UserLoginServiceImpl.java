@@ -47,16 +47,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         System.out.println("netip" + netip);
         GetIpcofig ipconf = new GetIpcofig();
         String ipaddress = null; // 获取到完整的地址
+        String currIpaddress =null;
         try {
             ipaddress = ipconf.getAddresses("ip=" + netip, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if(StringUtils.isEmpty(ipaddress))
+        if(!StringUtils.isEmpty(ipaddress))
         {
-            return 0;
+            currIpaddress = ipaddress.substring(4, 14);  //包含 X国家 XX省 XX市
         }
-        String currIpaddress = ipaddress.substring(4, 14);  //包含 X国家 XX省 XX市
+        currIpaddress="河南省 洛阳市";
         user.setRegister_address(currIpaddress);
         System.out.println(currIpaddress);
         System.out.println("ipaddress" + ipaddress);
