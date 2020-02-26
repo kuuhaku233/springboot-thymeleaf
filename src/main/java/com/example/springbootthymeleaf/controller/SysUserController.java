@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaf.controller;
 
+import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.pojo.User;
 import com.example.springbootthymeleaf.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class SysUserController {
     //获取用户信息
     @RequestMapping("getsysusers")
     @ResponseBody
+    @ALog(desc="查看用户")
     public List<User> getSysUsers(String start, String length,
                                             HttpServletRequest reqeust) {
         //获取datatable的排序参数
@@ -53,6 +55,7 @@ public class SysUserController {
 
     @RequestMapping("updateusermess")
     @ResponseBody
+    @ALog(desc="修改用户")
     //更新用户信息
     public int updateUserMess(@RequestParam(value = "uid") int uid, String username,
                                   String password, String email, String phone, String signed) {
@@ -64,6 +67,7 @@ public class SysUserController {
     //删除用户信息
     @RequestMapping("deleteusermess")
     @ResponseBody
+    @ALog(desc="删除用户")
     public int deleteUserMess(@RequestParam(value = "uid") int uid) {
         return sus.deleteUserMess(uid);
 
@@ -72,6 +76,7 @@ public class SysUserController {
     //新增用户数据
     @RequestMapping("addusermess")
     @ResponseBody
+    @ALog(desc="新增用户")
     public int addUserMess(User su) throws UnsupportedEncodingException {
         return sus.addUserMess(su);
     }

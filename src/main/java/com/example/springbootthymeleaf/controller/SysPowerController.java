@@ -22,6 +22,7 @@ public class SysPowerController {
     //获取选中角色锁具有的资源
     @RequestMapping("getpwoerresource")
     @ResponseBody
+    @ALog(desc="查看权限")
     public List<PowerVO> getPowerResource(Integer rid)
     {
        return sysPowerService.getPowerResource(rid);

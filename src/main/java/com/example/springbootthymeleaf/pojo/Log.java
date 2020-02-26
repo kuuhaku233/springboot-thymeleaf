@@ -13,6 +13,16 @@ public class Log implements Serializable {
     private Date end_time;
     private String username;
 
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    private Integer roleid;
+
     @Override
     public String toString() {
         return "Log{" +

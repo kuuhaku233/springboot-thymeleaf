@@ -22,13 +22,19 @@
         <result property="login_time" column="loginTime"/>
     </resultMap>
 
-    <select id="getLogs" resultType="log">
-        select * from log
+    <select id="getLogs" resultType="com.example.springbootthymeleaf.view.LogVo">
+               SELECT
+                    l.*,
+                    r.rname
+                FROM
+                    role r
+                    INNER JOIN log l ON r.rid = l.roleid
+
     </select>
 
     <insert id="saveLog">
-        insert into log(title,url,end_time,username,exception)
-        values(#{title},#{url},#{end_time},#{username},#{exception})
+        insert into log(title,url,end_time,username,exception,roleid)
+        values(#{title},#{url},#{end_time},#{username},#{exception},#{roleid})
     </insert>
 
 

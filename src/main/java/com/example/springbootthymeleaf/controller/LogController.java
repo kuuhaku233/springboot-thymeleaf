@@ -1,10 +1,13 @@
 package com.example.springbootthymeleaf.controller;
 
+import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.pojo.Log;
 import com.example.springbootthymeleaf.service.LogService;
+import com.example.springbootthymeleaf.view.LogVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -17,7 +20,9 @@ public class LogController {
 
     @RequestMapping("getLogs")
     @ResponseBody
-    public List<Log> getLogs() {
+    @ALog(desc="查看日志")
+    public List<LogVo> getLogs(@RequestParam(defaultValue = "",required = false) String search) {
+        System.out.println(search);
         return logService.getLogs();
     }
 

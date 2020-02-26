@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaf.controller;
 
+import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.pojo.Role;
 import com.example.springbootthymeleaf.pojo.User;
 import com.example.springbootthymeleaf.service.SysRoleService;
@@ -20,6 +21,7 @@ public class SysRoleController {
     //查询角色表所有信息
     @RequestMapping("findAll")
     @ResponseBody
+    @ALog(desc="查看角色")
     List<Role> findAll() {
         return sysRoleService.getRoles();
     }
@@ -33,6 +35,7 @@ public class SysRoleController {
 
     @RequestMapping("update")
     @ResponseBody
+    @ALog(desc="修改角色")
     int updateRole(@RequestParam(value = "rid") Integer rid, String rname) {
         return sysRoleService.updateRole(rid, rname);
     }
@@ -40,6 +43,7 @@ public class SysRoleController {
     //根据id 删除角色信息
     @RequestMapping("delete")
     @ResponseBody
+    @ALog(desc="删除角色")
     int deleteRole(@RequestParam(value = "rid") Integer rid) {
         return sysRoleService.deleteRole(rid);
     }
@@ -48,6 +52,7 @@ public class SysRoleController {
     //新增角色信息
     @RequestMapping("save")
     @ResponseBody
+    @ALog(desc="新增角色")
     int saveRole(Role role) {
         return sysRoleService.saveRole(role);
     }
@@ -63,6 +68,7 @@ public class SysRoleController {
     //修改角色表 角色下人员的信息
     @RequestMapping("updateroleuser")
     @ResponseBody
+    @ALog(desc="查看角色下的人员")
     Boolean updateUserRole(String [] uid)
     {
         //数组长度大于1，说明有用户被取消掉了

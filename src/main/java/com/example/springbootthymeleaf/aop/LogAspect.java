@@ -91,6 +91,7 @@ public class LogAspect {
             log.setUrl(request.getRequestURL().toString());
             log.setUsername(user.getUsername());
             log.setException(exception);
+            log.setRoleid(user.getRoleid());
             // 4.相当于最终通知
             log.setEnd_time(new Date());// 设置操作日期
 //            logService.saveLog(log);// 添加日志记录
