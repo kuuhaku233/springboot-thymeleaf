@@ -24,7 +24,7 @@
       displayTableName:   false,        // Deprecated
       escape:             false,        // Deprecated
       exportHiddenCells:  false,        // true = speed up export of large tables with hidden cells (hidden cells will be exported !)
-      fileName:           'tableExport',
+      fileName:           '日志信息表',
       htmlContent:        false,
       htmlHyperlink:      'content',    // Export the 'content' or the 'href' link of <a> tags unless onCellHtmlHyperlink is not defined
       ignoreColumn:       [],

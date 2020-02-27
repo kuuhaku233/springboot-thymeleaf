@@ -33,8 +33,9 @@
     <!-- 引入bootstrapTable的导出插件 -->
     <script th:src="@{/static/plugins/bootstrap-table/extensions/export/FileSaver.min.js}"></script>
     <script th:src="@{/static/plugins/bootstrap-table/extensions/export/xlsx.core.min.js}"></script>
-    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/tableExport.js}"></script>
+    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/RiZhitableExport.js}"></script>
     <script th:src="@{/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js}"></script>
+    <!-- 引入bootstrapTable的导出插件 -->
     <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-table/bootstrap-table.css}">
 
 </head>
@@ -181,7 +182,7 @@
 <!--NiftyJS [ RECOMMENDED ]-->
 <script th:src="@{/static/js/nifty.min.js}"></script>
 <!--Demo script [ DEMONSTRATION ]-->
-<script th:src="@{/static/js/demo/nifty-demo.min.js}"></script>
+<!--<script th:src="@{/static/js/demo/nifty-demo.min.js}"></script>-->
 
 
 <!--DataTables [ OPTIONAL ]-->
@@ -248,7 +249,7 @@
             locale: 'zh-CN',
             pagination: true,//分页
             pageNumber: 1,//默认显示第1也
-            pageSize: 20,//每页显示的数量
+            pageSize: 100,//每页显示的数量
             pageList: [ 10, 20, 50,100],//设置每页显示的数量
             search: true,//搜索
             /*sidePagination: 'server',//设置服务器端分页**********************/
@@ -263,17 +264,17 @@
             buttonsAlign:"left",  //按钮位置
             exportDataType: "all",//selected导出选中数据   basic：只导出当前页的表格数据；all：导出所有数据；
             exportOptions:{
-                ignoreColumn:null,  //忽略某一列的索引
+                ignoreColumn:[],  //忽略某一列的索引
                 fileName: '日志记录表',  //文件名称设置
                 worksheetName: '日志记录表',  //表格工作区名称
                 tableName: '日志记录表',
                 excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
             },
             columns: [
-                {
+               /* {
                     field: null,
                     checkbox:true
-                },
+                },*/
                 {
                     title:"id",
                     field: "id",

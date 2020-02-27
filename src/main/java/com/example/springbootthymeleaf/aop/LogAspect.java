@@ -88,7 +88,7 @@ public class LogAspect {
             // 3.相当于异常通知部分
             exception="失败";// 设置操作结果
         } finally {
-            log.setUrl(request.getRequestURL().toString());
+            log.setUrl(request.getRequestURI().toString());
             log.setUsername(user.getUsername());
             log.setException(exception);
             log.setRoleid(user.getRoleid());
