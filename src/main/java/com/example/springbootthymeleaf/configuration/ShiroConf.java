@@ -23,19 +23,21 @@ public class ShiroConf {
         // 设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //添加shiro内置过滤器  实现一些相关的拦截
-        /**
+         /**
          *  anon 无需登录认证就可访问
          *  authc 必须认证才能访问
          *  user  只要使用了rememberMe的功能就可以访问
          *  perms  该资源必须得到资源权限才能访问
          *  role   该资源必须得到角色权限才能访问
          */
+
         Map<String, String> filterMap = new LinkedHashMap<>();
+        filterMap.put("/system/findAll", "anon");
 //        filterMap.put("/login", "anon");
 //        filterMap.put("/register", "anon");
-        filterMap.put("/link/register", "anon");
+//        filterMap.put("/link/register", "anon");
         filterMap.put("/link/*", "authc");
-//        filterMap.put("/system/*", "authc");
+//        filterMap.put("/system/*", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         //设置拦截后的跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");

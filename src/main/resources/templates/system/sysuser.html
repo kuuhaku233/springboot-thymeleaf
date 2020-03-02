@@ -31,6 +31,10 @@
     <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-table/bootstrap-table.css}">
     <script th:src="@{/static/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
     <script th:src="@{/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+    <!-- 文件上传的样式 -->
+    <link th:href="@{/static/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/dropzone.min.css}" rel="stylesheet">
+    <!-- 文件上传的样式 -->
 </head>
 
 <body>
@@ -140,32 +144,7 @@
 
 
     <!-- FOOTER -->
-    <!--===================================================-->
-    <footer id="footer">
-
-        <!-- Visible when footer positions are fixed -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div class="show-fixed pad-rgt pull-right">
-            You have <a class="text-main" href="#"><span class="badge badge-danger">3</span> pending action.</a>
-        </div>
-
-
-        <!-- Visible when footer positions are static -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <div class="hide-fixed pull-right pad-rgt">
-            14GB of <strong>512GB</strong> Free.
-        </div>
-
-
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-        <p class="pad-lft">&#0169; 2017 Your Company</p>
-
-
-    </footer>
-    <!--===================================================-->
+    <th:block th:include="/common/footer.html"></th:block>
     <!-- END FOOTER -->
 
 
@@ -245,6 +224,19 @@
                 <h4 class="modal-title">用户数据添加界面</h4>
             </div>
             <div class="modal-body">
+                <!-- 文件上传 -->
+                <div id="dropz" class="dropzone" style="padding: 0px;min-height: 100px;margin-bottom: 10px " >
+                    <div class="dz-default dz-message" style="margin: 2px">
+                        <div class="dz-icon">
+                            <i class="demo-pli-upload-to-cloud icon-5x"></i>
+                        </div>
+                        <div>
+                            <span class="dz-text">拖拽上传图标</span>
+                            <p class="text-sm text-muted">或者点击图标上传</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 文件上传 -->
                 <form class="form-horizontal" id="formadd">
 
                     <div class="panel-body">
@@ -317,6 +309,9 @@
 <script th:src="@{/static/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
 <!--<% 引入bootstrap select的插件%>-->
 <script th:src="@{/static/plugins/bootstrap-select/bootstrap-select.js}"></script>
+<!-- 文件上传的js -->
+<script th:src="@{/static/js/dropzone.min.js}"></script>
+<!-- 文件上传的js -->
 <!-- Live2D 看板动画-->
 <!--<script th:src="@{./lib/L2Dwidget.min.js}"></script>
 <script type="text/javascript">
@@ -643,6 +638,87 @@
             }
         })
     })
+
+
+</script>
+<!--文件上传-->
+<script>
+    //上传文件的原始名字
+    var oname="";
+    //上传后文件的名字
+    var fileName="";
+    $("#dropz").dropzone({
+        url: "../upload/uploadImages",
+        maxFiles: 1,
+        maxFilesize: 5,
+        acceptedFiles: ".jpg,.gif,.png,.jpeg",
+        addRemoveLinks:true,
+        autoProcessQueue: true,//即拖入文件立即自动上传
+        paramName: "file",
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictFileTooBig:"文件大小不能超过5M",
+        dictInvalidInputType:"只允许上传图片：.jpg.jpeg.png.gif",
+
+        init: function () {
+            this.on("success",function (file,data) {
+                //上传成功是触发
+                $("#logopath").val(data.path)
+                oname=data.orname;
+                fileName=data.fileName;
+
+            })
+            this.on("removedfile",function(file){
+
+                if(file.name==oname){
+                    $("#logopath").val("");
+                }
+            });
+            this.on("maxfilesexceeded", function(file)
+            {
+                this.removeFile(file);
+            });
+
+        }
+    });
+
+
+
+    //修改缩略图
+    $("#dropzxiugai").dropzone({
+        url: "../upload/uploadImages",
+        maxFiles: 1,
+        maxFilesize: 5,
+        acceptedFiles: ".jpg,.gif,.png,.jpeg",
+        addRemoveLinks:true,
+        autoProcessQueue: true,//即拖入文件立即自动上传
+        paramName: "file",
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictFileTooBig:"文件大小不能超过5M",
+        dictInvalidInputType:"只允许上传图片：.jpg.jpeg.png.gif",
+        dictDefaultMessage :'<img class="img-sm" src="' + $("#logopathxiugai").val()+ '"><br><span>点击修改</span>',
+        init: function () {
+            this.on("success",function (file,data) {
+                //上传成功是触发
+                $("#logopathxiugai").val(data.path)
+                oname=data.orname;
+                fileName=data.fileName;
+
+            })
+            this.on("removedfile",function(file){
+
+                if(file.name==oname){
+                    $("#logopathxiugai").val("");
+                }
+            });
+            this.on("maxfilesexceeded", function(file)
+            {
+                this.removeFile(file);
+            });
+
+        }
+    });
+
+
 
 
 </script>
