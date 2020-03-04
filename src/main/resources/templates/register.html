@@ -6,6 +6,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 
     <title>注册页面</title>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
     <!--STYLESHEET-->
     <!--=================================================-->
     <!--Open Sans Font [ OPTIONAL ]-->
@@ -62,7 +63,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">密码：</label>
                             <div class="col-sm-9">
-                                <input class="form-control" name="password" placeholder="password" type="text">
+                                <input class="form-control" name="password" placeholder="password" type="password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -138,7 +139,7 @@
 <!--=================================================-->
 
 <!--jQuery [ REQUIRED ]-->
-<script th:src="@{/static/js/jquery.min.js}"></script>
+
 
 <!--BootstrapJS [ RECOMMENDED ]-->
 <script th:src="@{/static/js/bootstrap.min.js}"></script>
@@ -150,9 +151,8 @@
 <script th:src="@{/static/js/demo/bg-images.js}"></script>
 <!--<% 引入bootstrap select的插件%>-->
 <script th:src="@{/static/plugins/bootstrap-select/bootstrap-select.js}"></script>
-<script>
+<script th:inline="javascript">
     $(function () {
-        $("#select2").empty();
         $.ajax({
             url: "/system/findAll",
             success: function (data) {
@@ -167,6 +167,8 @@
         });
 
     })
+
+
 </script>
 <script th:inline="javascript">
     var result=[[${result}]]

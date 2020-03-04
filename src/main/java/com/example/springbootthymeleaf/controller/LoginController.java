@@ -1,7 +1,9 @@
 package com.example.springbootthymeleaf.controller;
 
 import com.example.springbootthymeleaf.annotation.ALog;
+import com.example.springbootthymeleaf.pojo.Role;
 import com.example.springbootthymeleaf.pojo.User;
+import com.example.springbootthymeleaf.service.SysRoleService;
 import com.example.springbootthymeleaf.service.UserLoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -14,12 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class LoginController {
+    @Autowired
+    SysRoleService sysRoleService;
     @Autowired
     private UserLoginService userLoginService;
 
@@ -56,8 +60,10 @@ public class LoginController {
     }
 
     @GetMapping("/register")
-    public String getRegister()
+    public String getRegister(Model model)
     {
+        List<Role> roles = sysRoleService.getRoles();
+        model.addAttribute("roles", roles);
         return "/register";
     }
     @PostMapping("/register")

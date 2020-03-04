@@ -96,7 +96,7 @@ public class LogAspect {
             log.setEnd_time(new Date());// 设置操作日期
 //            logService.saveLog(log);// 添加日志记录
             logService.saveLog(log);
-            System.out.println(log);
+//            System.out.println(log);
         }
         return result;
 

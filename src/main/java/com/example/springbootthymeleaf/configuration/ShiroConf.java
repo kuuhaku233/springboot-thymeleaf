@@ -33,16 +33,12 @@ public class ShiroConf {
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/system/findAll", "anon");
-//        filterMap.put("/login", "anon");
-//        filterMap.put("/register", "anon");
-//        filterMap.put("/link/register", "anon");
+        filterMap.put("/link/register", "anon");
         filterMap.put("/link/*", "authc");
-//        filterMap.put("/system/*", "anon");
+        filterMap.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         //设置拦截后的跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");
-
-
         return shiroFilterFactoryBean;
 
     }
