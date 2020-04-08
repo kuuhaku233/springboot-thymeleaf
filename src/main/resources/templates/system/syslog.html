@@ -7,36 +7,36 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <title>日志查看页面</title>
     <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
     <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link href="../../static/css/nifty.min.css" rel="stylesheet" th:href="@{/static/css/nifty.min.css}">
+    <link href="../../css/nifty.min.css" rel="stylesheet" th:href="@{/css/nifty.min.css}">
 
     <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    <link href="../../static/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
-    <link th:href="@{/static/css/demo/nifty-demo-icons.min.css}">
-    <link href="../../static/css/demo/myfonts/iconfont.css" rel="stylesheet">
-    <link th:href="@{/static/css/demo/myfonts/iconfont.css}">
+    <link href="../../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
+    <link th:href="@{/css/demo/nifty-demo-icons.min.css}">
+    <link href="../../css/demo/myfonts/iconfont.css" rel="stylesheet">
+    <link th:href="@{/css/demo/myfonts/iconfont.css}">
     <!--Pace - Page Load Progress Par [OPTIONAL]-->
-    <link href="../../static/plugins/pace/pace.min.css" rel="stylesheet" th:href="@{/static/plugins/pace/pace.min.css}">
-    <script src="../../static/plugins/pace/pace.min.js" th:src="@{/static/plugins/pace/pace.min.js}"></script>
+    <link href="../../plugins/pace/pace.min.css" rel="stylesheet" th:href="@{/plugins/pace/pace.min.css}">
+    <script src="../../plugins/pace/pace.min.js" th:src="@{/plugins/pace/pace.min.js}"></script>
 
 
     <!--DataTables [ OPTIONAL ]-->
-    <link rel="stylesheet" th:href="@{/static/plugins/datatables/media/css/dataTables.bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables/media/css/dataTables.bootstrap.css}">
 
     <!--Bootstrap Validator 表单验证-->
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-validator/bootstrapValidator.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-validator/bootstrapValidator.min.css}">
     <!--    <% 引入bootstrap select的css %>-->
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/bootstrap-select.css}">
-    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/bootstrap-select.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
     <!-- 引入bootstrapTable的导出插件 -->
-    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/FileSaver.min.js}"></script>
-    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/xlsx.core.min.js}"></script>
-    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/RiZhitableExport.js}"></script>
-    <script th:src="@{/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-table/extensions/export/FileSaver.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-table/extensions/export/xlsx.core.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-table/extensions/export/RiZhitableExport.js}"></script>
+    <script th:src="@{/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js}"></script>
     <!-- 引入bootstrapTable的导出插件 -->
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-table/bootstrap-table.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.css}">
 
 </head>
 
@@ -56,9 +56,9 @@
 
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <div id="page-title">
+               <!-- <div id="page-title">
                     <h1 class="page-header text-overflow">用户管理</h1>
-                </div>
+                </div>-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End page title-->
 
@@ -67,7 +67,7 @@
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="demo-pli-home"></i></a></li>
-                    <li><a href="#">系统管理</a></li>
+                    <li>系统管理</a></li>
                     <li class="active">日志查看</li>
                 </ol>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -153,26 +153,26 @@
 
 
 <!--BootstrapJS [ RECOMMENDED ]-->
-<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <!--NiftyJS [ RECOMMENDED ]-->
-<script th:src="@{/static/js/nifty.min.js}"></script>
+<script th:src="@{/js/nifty.min.js}"></script>
 <!--Demo script [ DEMONSTRATION ]-->
-<!--<script th:src="@{/static/js/demo/nifty-demo.min.js}"></script>-->
+<!--<script th:src="@{/js/demo/nifty-demo.min.js}"></script>-->
 
 
 <!--DataTables [ OPTIONAL ]-->
-<script th:src="@{/static/plugins/bootbox/bootbox.min.js}"></script>
-<script th:src="@{/static/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
-<script th:src="@{/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<script th:src="@{/plugins/bootbox/bootbox.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
 
 <!--Bootstrap Validator 表单验证-->
-<script th:src="@{/static/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
 <!--<% 引入bootstrap select的插件%>-->
-<script th:src="@{/static/plugins/bootstrap-select/bootstrap-select.js}"></script>
+<script th:src="@{/plugins/bootstrap-select/bootstrap-select.js}"></script>
 
 
 <!-- Live2D 看板动画-->
-<!--<script th:src="@{./lib/L2Dwidget.min.js}"></script>
+<script th:src="@{/lib/L2Dwidget.min.js}"></script>
 <script type="text/javascript">
     L2Dwidget.init({
         "model": {
@@ -184,8 +184,8 @@
             "hOffset": 40, "vOffset": 20,
 
         }, "mobile": {"show": true, "scale": 0.5},
-        "react": {opacity: 0.8},
-        dialog: {
+        "react": {opacity: 0.7}, //设置透明度
+            dialog: {
             // 开启对话框
             enable: true,
             script: {
@@ -201,7 +201,7 @@
         }
     });
 
-</script>-->
+</script>
 
 
 <!--<% datatable数据的获取 %>-->

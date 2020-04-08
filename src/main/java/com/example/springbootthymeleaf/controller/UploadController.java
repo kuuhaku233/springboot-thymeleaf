@@ -6,19 +6,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/upload/")
 public class UploadController {
-    @RequestMapping("uploadImages")
+    /*@RequestMapping("uploadImages")
     @ResponseBody
     public Map<String, String> uploadImages(HttpServletRequest request,
-            @RequestParam(value = "file", required = false) CommonsMultipartFile file) {
+            @RequestParam(value = "upfile", required = false) MultipartFile file) {
         Map<String, String> map = new HashMap<>();
         String uname=String.valueOf(System.currentTimeMillis());
         //获取真实路径
@@ -41,5 +43,17 @@ public class UploadController {
         return map;
 
 
+    }*/
+    @RequestMapping("simpleupload")
+    @ResponseBody
+    public Map<String,String> Upload(MultipartFile upfile,HttpServletRequest request)
+    {
+        Map<String,String> map=new HashMap<>();
+        //获取真实路径
+        String realPath = request.getSession().getServletContext().getRealPath("/") ;
+        String oname = upfile.getOriginalFilename();
+        String hzm=oname.substring(oname.lastIndexOf("."));
+        String wjm= UUID.randomUUID()+hzm;
+        return map;
     }
 }

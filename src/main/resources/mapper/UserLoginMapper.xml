@@ -53,6 +53,9 @@
             and flag = #{flag}
         </if>
     </sql>-->
+    <select id="verifyUserName" resultMap="userResult">
+        select * from users where username=#{username}
+    </select>
     <insert id="getRegister" parameterType="user">
          insert into users(username, password, email, phone, registerAddress,
         registerTime, loginTime, lastLoginTime, loginCount, signed, roleid, organizeid, opid,salt)

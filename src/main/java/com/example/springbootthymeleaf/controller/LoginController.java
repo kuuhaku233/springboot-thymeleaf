@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaf.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.pojo.Role;
 import com.example.springbootthymeleaf.pojo.User;
@@ -13,12 +14,12 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -59,14 +60,7 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String getRegister(Model model)
-    {
-        List<Role> roles = sysRoleService.getRoles();
-        model.addAttribute("roles", roles);
-        return "/register";
-    }
-    @PostMapping("/register")
+    @RequestMapping(value="/register.html",method = {RequestMethod.GET,RequestMethod.POST})
     public String getRegister(User user,Model model) {
         Integer register = userLoginService.getRegister(user);
         if(register>0)
@@ -74,6 +68,22 @@ public class LoginController {
             model.addAttribute("result", "注册成功");
         }
         return "register";
+    }
+
+    @RequestMapping("/system/userName")
+    @ResponseBody
+    public String verifyUserName(String username)
+    {
+        Map<String,Boolean> map=new HashMap<>();
+        Boolean aBoolean = userLoginService.verifyUserName(username);
+        if(!aBoolean)
+        {
+            map.put("valid", false);
+        }else {
+            map.put("valid", true);
+        }
+
+        return JSONUtils.toJSONString(map);
     }
 
 }

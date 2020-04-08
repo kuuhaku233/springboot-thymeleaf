@@ -3,6 +3,7 @@ package com.example.springbootthymeleaf.controller;
 import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.pojo.User;
 import com.example.springbootthymeleaf.service.SysUserService;
+import com.example.springbootthymeleaf.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ import java.util.Map;
 public class SysUserController {
     @Autowired
     private SysUserService sus;
+    @Autowired
+    UserLoginService userLoginService;
 
     //获取用户信息
     @RequestMapping("getsysusers")
@@ -78,7 +81,7 @@ public class SysUserController {
     @ResponseBody
     @ALog(desc="新增用户")
     public int addUserMess(User su) throws UnsupportedEncodingException {
-        return sus.addUserMess(su);
+        return userLoginService.getRegister(su);
     }
 
     //验证手机号是否存在

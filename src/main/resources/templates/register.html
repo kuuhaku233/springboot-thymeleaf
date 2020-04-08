@@ -6,26 +6,31 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 
     <title>注册页面</title>
-    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <style>
+        .r {
+            color: red;
+        }
+    </style>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <!--STYLESHEET-->
     <!--=================================================-->
     <!--Open Sans Font [ OPTIONAL ]-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
     <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
     <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link rel="stylesheet" th:href="@{/static/css/nifty.min.css}">
+    <link rel="stylesheet" th:href="@{/css/nifty.min.css}">
     <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    <link rel="stylesheet" th:href="@{/static/css/demo/nifty-demo-icons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/demo/nifty-demo-icons.min.css}">
     <!--Demo [ DEMONSTRATION ]-->
-    <link rel="stylesheet" th:href="@{/static/css/demo/nifty-demo.min.css}">
+    <link rel="stylesheet" th:href="@{/css/demo/nifty-demo.min.css}">
     <!--=================================================-->
     <!--Pace - Page Load Progress Par [OPTIONAL]-->
-    <link rel="stylesheet" th:href="@{/static/plugins/pace/pace.min.css}">
-    <script th:src="@{/static/plugins/pace/pace.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-table/bootstrap-table.css}">
+    <link rel="stylesheet" th:href="@{/plugins/pace/pace.min.css}">
+    <script th:src="@{/plugins/pace/pace.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.css}">
 
 
 </head>
@@ -36,7 +41,7 @@
 <body>
 <div class="cls-container" id="container" >
 
-    <div class="bg-img" id="bg-overlay" style="background-image: url('../static/img/bg-img/bg-img-3.jpg');"></div>
+    <div class="bg-img" id="bg-overlay" style="background-image: url('../img/bg-img/bg-img-3.jpg');"></div>
 
 
     <!-- BACKGROUND IMAGE -->
@@ -52,25 +57,25 @@
                     <h1 class="h3">注册页面</h1>
                     <p>请注册管理系统的账号</p>
                 </div>
-                <form class="form-horizontal" id="formadd" method="post" th:action="@{/register}" action="#">
+                <form class="form-horizontal" id="formadd" method="post" th:action="@{/register.html}" action="#">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户名：</label>
+                            </span><label class="col-sm-3 control-label"><span class="r">*</span> 用户名：</label>
                             <div class="col-sm-9">
                                 <input class="form-control" name="username" placeholder="username" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">密码：</label>
+                            <label class="col-sm-3 control-label"><span class="r">*</span> 密码：</label>
                             <div class="col-sm-9">
                                 <input class="form-control" name="password" placeholder="password" type="password">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">请选择角色：</label>
+                            <label class="col-sm-3 control-label"><span class="r">*</span> 请选择角色：</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="select2">
-                                    <option>....请选择....</option>
+                                <select class="form-control" name="roleid">
+                                    <option th:each="role : ${roles}" th:value="${role.rid}" th:text="${role.rname}"></option>
                                 </select>
                             </div>
                         </div>
@@ -81,7 +86,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">手机号：</label>
+                            <label class="col-sm-3 control-label"><span class="r">*</span>手机号：</label>
                             <div class="col-sm-9">
                                 <input class="form-control" name="phone" placeholder="phone" type="text">
                             </div>
@@ -117,59 +122,152 @@
     <div class="demo-bg">
         <div id="demo-bg-list">
             <div class="demo-loading"><i class="psi-repeat-2"></i></div>
-            <img alt="Background Image" class="demo-chg-bg bg-trans active" src="/static/img/bg-img/thumbs/bg-trns.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-1.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-2.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-3.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-4.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-5.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-6.jpg">
-            <img alt="Background Image" class="demo-chg-bg" src="/static/img/bg-img/thumbs/bg-img-7.jpg">
+            <img alt="Background Image" class="demo-chg-bg bg-trans active" src="/img/bg-img/thumbs/bg-trns.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-1.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-2.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-3.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-4.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-5.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-6.jpg">
+            <img alt="Background Image" class="demo-chg-bg" src="/img/bg-img/thumbs/bg-img-7.jpg">
         </div>
     </div>
     <!--===================================================-->
 
 
 </div>
-<!--===================================================-->
-<!-- END OF CONTAINER -->
 
-
-<!--JAVASCRIPT-->
-<!--=================================================-->
-
-<!--jQuery [ REQUIRED ]-->
-
-
-<!--BootstrapJS [ RECOMMENDED ]-->
-<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
 
 <!--NiftyJ [ RECOMMENDED ]-->
-<script th:src="@{/static/js/nifty.min.js}"></script>
+<script th:src="@{/js/nifty.min.js}"></script>
 <!--=================================================-->
 <!--Background Image [ DEMONSTRATION ]-->
-<script th:src="@{/static/js/demo/bg-images.js}"></script>
+<script th:src="@{/js/demo/bg-images.js}"></script>
 <!--<% 引入bootstrap select的插件%>-->
-<script th:src="@{/static/plugins/bootstrap-select/bootstrap-select.js}"></script>
-<script th:inline="javascript">
-    $(function () {
-        $.ajax({
-            url: "/system/findAll",
-            success: function (data) {
-                if (data != null) {
-                    for (var i = 0; i < data.length; i++) {
-                        $("#select2").append(
-                            '<option value="' + data[i].rid + '">' + data[i].rname + '</option>'
-                        )
-                    }
-                }
+<script th:src="@{/plugins/bootstrap-select/bootstrap-select.js}"></script>
+<script th:src="@{/lib/L2Dwidget.min.js}"></script>
+<script type="text/javascript">
+    L2Dwidget.init({
+        "model": {
+            jsonPath:
+                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+            "scale": 0.8
+        }, "display": {
+            "position": "left", "width": 200, "height": 270,
+            "hOffset": 40, "vOffset": 20,
+
+        }, "mobile": {"show": true, "scale": 0.5},
+        "react": {opacity: 0.7},
+        dialog: {
+            // 开启对话框
+            enable: true,
+            script: {
+                // 每空闲 10 秒钟，显示一条一言
+                'every idle 8s': '$hitokoto$',
+                // 当触摸到星星图案
+                'hover .star': '星星在天上而你在我心里 (*/ω＼*)',
+                // 当触摸到角色身体
+                'tap body': '哎呀！别碰我！',
+                // 当触摸到角色头部
+                'tap face': '人家已经不是小孩子了！'
             }
-        });
+        }
+    });
+
+</script >
+<script>
+    $(function () {
+        $("#formadd").bootstrapValidator({
+            message: 'This value is not valid',
+            //验证显示的图标
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            //验证规则
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+
+                        stringLength: {
+                            min: 4,
+                            max: 18,
+                            message: '用户名长度必须在6到18位之间'
+                        },
+                        remote: {//ajax验证。server result:{"valid",true or false}
+                            url: "../system/userName",
+                            message: '用户名已存在',
+                            delay: 1000,//ajax刷新的时间是1秒一次
+                            type: 'POST',
+
+                            //自定义提交数据，默认值提交当前input value
+                            data: ""
+                        },
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 18,
+                            message: '密码长度必须在6到18位之间'
+                        },
+                    }
+                },
+
+                phone: {
+                    validators: {
+                        notEmpty: {
+                            message: '手机号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^1[34578]\d{9}$/,
+                            message: '手机号格式不正确'
+                        },
+
+
+                    }
+                },
+                register_address: {
+                    validators: {
+                        notEmpty: {
+                            message: '注册地址不能为空'
+                        }
+                    }
+                },
+                register_time: {
+                    validators: {
+                        notEmpty: {
+                            message: '注册时间不能为空'
+                        }
+                    }
+                },
+
+            }
+
+        })
 
     })
-
-
 </script>
+<script>
+    $(function () {
+        $("#formadd").reset(
+            {
+
+            }
+        );
+    })
+</script>
+
 <script th:inline="javascript">
     var result=[[${result}]]
     if(result!=null)

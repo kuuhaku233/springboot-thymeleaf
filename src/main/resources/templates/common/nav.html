@@ -14,7 +14,7 @@
                         <div class="profile-wrap text-center">
                             <div class="pad-btm">
                                 <img alt="Profile Picture" class="img-circle img-md"
-                                     src="/static/img/profile-photos/1.png">
+                                     src="/img/profile-photos/1.png">
                             </div>
                             <a aria-expanded="false" class="box-block" data-toggle="collapse" href="#profile-nav">
                                             <span class="pull-right dropdown-toggle">
@@ -25,7 +25,7 @@
                             </a>
                         </div>
                         <div class="collapse list-group bg-trans" id="profile-nav">
-                            <a class="list-group-item" href="../jsp/index.jsp">
+                            <!--<a class="list-group-item" href="../jsp/index.jsp">
                                 <i class="demo-pli-male icon-lg icon-fw"></i> 个人信息
                             </a>
                             <a class="list-group-item" href="../jsp/index.jsp">
@@ -33,7 +33,7 @@
                             </a>
                             <a class="list-group-item" href="../jsp/index.jsp">
                                 <i class="demo-pli-information icon-lg icon-fw"></i> 帮助
-                            </a>
+                            </a>-->
                             <a class="list-group-item" href="/link/logout">
                                 <i class="demo-pli-unlock icon-lg icon-fw"></i> 注销
                             </a>
@@ -86,8 +86,7 @@
                                 <span class="menu-title">首页</span>
                             </a>
                         </li>
-                        <li class="list-divider"></li>
-                        <!--                        <shiro:hasPermission name="javascript:void(0)">-->
+                        <!-- 系统管理菜单 -->
                         <li>
                             <a href="javascript:void(0)">
                                 <i class="myfont icon-yuanquyunwei"></i>
@@ -111,13 +110,56 @@
                                 <li><a shiro:hasPermission="../link/tosyspower" th:href="@{/link/tosyspower}">权限管理</a>
                                 </li>
                                 <!--                                    </shiro:hasPermission>-->
-                                <li><a  th:href="@{../link/tologs}">日志查看</a>
+                                <li><a th:href="@{../link/tologs}">日志查看</a>
                                 </li>
 
                             </ul>
                         </li>
+
                         <li class="list-divider"></li>
-                        <!--                        </shiro:hasPermission>-->
+                        <!-- 业务管理菜单 -->
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="myfont icon-yingyongguanli"></i>
+                                <span class="menu-title">业务管理</span>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse in">
+                                <!--                                    <shiro:hasPermission name="../link/tosysuser">-->
+                                <li><a shiro:hasPermission="../link/torkgl" th:href="@{/link/torkgl}">入库管理</a></li>
+                                <!--                                </shiro:hasPermission>-->
+<!--                                <shiro:hasPermission name="../link/tosysrole">-->
+                                    <li><a shiro:hasPermission="../link/tockgl" th:href="@{/link/tockgl}">出库管理</a></li>
+                                    <!--                                    </shiro:hasPermission>-->
+                                    <!--                                    <shiro:hasPermission name="../link/tosysresource">-->
+                                    <li><a shiro:hasPermission="../link/" th:href="@{/link/toclgl}">车辆管理</a></li>
+                                    <!--                                    </shiro:hasPermission>-->
+                                    <!--                                    <shiro:hasPermission name="../link/tosyspower">-->
+                                    <!--<li><a shiro:hasPermission="../link/tosyspower"
+                                           th:href="@{/link/tosyspower}">权限管理</a>
+                                    </li>-->
+                                    <!--                                    </shiro:hasPermission>-->
+                                    <!--<li><a th:href="@{../link/tologs}">日志查看</a>
+                                    </li>-->
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="myfont icon-renyuanguanli1"></i>
+                                <span class="menu-title">用户菜单</span>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse in">
+                                <!--                                    <shiro:hasPermission name="../link/tosysuser">-->
+                                <li><a th:href="@{../link/tosmqsl}">上门取件</a></li>
+                                <!--                                </shiro:hasPermission>-->
+                                <!--                                <shiro:hasPermission name="../link/tosysrole">-->
+                                <li><a th:href="@{../link/towyfh}">我要发货</a></li>
+
+                            </ul>
+                        </li>
+
                     </ul>
 
 

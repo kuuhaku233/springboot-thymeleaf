@@ -40,16 +40,16 @@ public class SysUserServiceImpl implements SysUserService {
     public int addUserMess(User su) throws UnsupportedEncodingException {
         su.setRegister_time(new Timestamp(new Date().getTime()));
         su.setLogin_count("0");
-        String ip=GetIpcofig.getlocalIp(); //内网ip地址
+       /* String ip=GetIpcofig.getlocalIp(); //内网ip地址
         System.out.println("ip"+ip);
         String netip=GetIpcofig.getnetIP();    //外网ip地址
-        System.out.println("netip"+netip);
-        GetIpcofig ipconf= new GetIpcofig();
+        System.out.println("netip"+netip);*/
+        /*GetIpcofig ipconf= new GetIpcofig();
         String ipaddress= ipconf.getAddresses("ip=" +netip,"UTF-8"); // 获取到完整的地址
-        String currIpaddress=ipaddress.substring(4,14);  //包含 X国家 XX省 XX市
-        su.setRegister_address(currIpaddress);
-        System.out.println(currIpaddress);
-        System.out.println("ipaddress"+ipaddress);
+        String currIpaddress=ipaddress.substring(4,14);  //包含 X国家 XX省 XX市*/
+        su.setRegister_address("中国 河南 三门峡");
+        /*System.out.println(currIpaddress);
+        System.out.println("ipaddress"+ipaddress);*/
         try {
             return sud.addUserMess(su);
         } catch (UnsupportedEncodingException e) {

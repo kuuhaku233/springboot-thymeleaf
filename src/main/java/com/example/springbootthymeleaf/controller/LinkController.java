@@ -1,13 +1,21 @@
 package com.example.springbootthymeleaf.controller;
 
+import com.example.springbootthymeleaf.pojo.Role;
+import com.example.springbootthymeleaf.pojo.User;
+import com.example.springbootthymeleaf.service.SysRoleService;
+import com.example.springbootthymeleaf.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/link/")
@@ -16,6 +24,10 @@ public class LinkController {
     HttpSession session;
     @Autowired
     HttpServletResponse response;
+    @Autowired
+    SysRoleService sysRoleService;
+    @Autowired
+    SysUserService sysUserService;
 
     @RequestMapping("/toindex")
     public String getIndex() throws IOException {
@@ -96,8 +108,14 @@ public class LinkController {
     }
 
     @RequestMapping("/register")
-    public String Register() throws IOException{
-        return "register";
+    public ModelAndView Register() throws IOException{
+        ModelAndView mv=new ModelAndView();
+        List<Role> roles = sysRoleService.getRoles();
+        Map<String,Object> map=new HashMap<>();
+        map.put("roles",roles);
+        mv.addAllObjects(map);
+        mv.setViewName("register");
+        return mv;
     }
 
     @RequestMapping("/tologs")
@@ -107,6 +125,61 @@ public class LinkController {
             return "login";
         }
         return "/system/syslog";
+    }
+    @RequestMapping("/torkgl")
+    public ModelAndView getRkgl(){
+        ModelAndView mv=new ModelAndView();
+        if(session.getAttribute("user")==null)
+        {
+            mv.setViewName("login");
+            return mv;
+        }
+        List<User> sysUsers = sysUserService.getSysUsers("", "", "", "");
+        mv.setViewName("server/rkgl");
+        mv.addObject("rkr",sysUsers);
+        return mv;
+    }
+
+    @RequestMapping("/tockgl")
+    public ModelAndView getCkgl(){
+        ModelAndView mv=new ModelAndView();
+        if(session.getAttribute("user")==null)
+        {
+            mv.setViewName("login");
+            return mv;
+        }
+        List<User> sysUsers = sysUserService.getSysUsers("", "", "", "");
+        mv.setViewName("server/ckgl");
+        mv.addObject("rkr",sysUsers);
+        return mv;
+    }
+
+    @RequestMapping("/tosmqsl")
+    public ModelAndView toSmqs(){
+        ModelAndView mv=new ModelAndView();
+        if(session.getAttribute("user")==null)
+        {
+            mv.setViewName("login");
+            return mv;
+        }
+        List<User> sysUsers = sysUserService.getSysUsers("", "", "", "");
+        mv.setViewName("user/smqj");
+        mv.addObject("rkr",sysUsers);
+        return mv;
+    }
+
+    @RequestMapping("/towyfh")
+    public ModelAndView toWyfh(){
+        ModelAndView mv=new ModelAndView();
+        if(session.getAttribute("user")==null)
+        {
+            mv.setViewName("login");
+            return mv;
+        }
+        List<User> sysUsers = sysUserService.getSysUsers("", "", "", "");
+        mv.setViewName("user/wyfh");
+        mv.addObject("rkr",sysUsers);
+        return mv;
     }
 
 

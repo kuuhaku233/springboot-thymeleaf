@@ -85,6 +85,7 @@ public class LogAspect {
             // 2.相当于后置通知(方法成功执行之后走这里)
             exception="正常";// 设置操作结果
         } catch (Exception e) {
+            e.printStackTrace();
             // 3.相当于异常通知部分
             exception="失败";// 设置操作结果
         } finally {

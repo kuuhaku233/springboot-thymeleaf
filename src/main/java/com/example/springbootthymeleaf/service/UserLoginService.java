@@ -10,4 +10,6 @@ public interface UserLoginService {
          User findByUsername(String username);
 
     Integer getRegister(User user);
+
+    Boolean verifyUserName(String username);
 }

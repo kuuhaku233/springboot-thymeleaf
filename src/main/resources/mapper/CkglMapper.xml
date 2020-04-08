@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootthymeleaf.dao.CkglMapper">
+
+    <select id="selecck" resultType="java.util.Map">
+SELECT
+	date_format( time, '%Y-%m-%d %H:%i:%S' ) time,
+	id,
+	lastStation,
+	nextStation,
+	username,
+	state,
+	`descs`
+FROM
+	chuku
+-- where state=2
+</select>
+    <update id="updateRk">
+        update chuku set state='2',time=NOW() where id=#{id}
+    </update>
+    <update id="UpdateById" parameterType="map">
+        UPDATE chuku
+        SET lastStation = #{lastStation},
+        nextStation = #{nextStation},
+        username = #{username},
+        descs=#{descs}
+        WHERE
+        id =#{id}
+    </update>
+<insert id="addRkxx" parameterType="map">
+    insert into chuku( lastStation,nextStation, time, username, descs,state)
+    values ( '洛阳',#{nextStation}, #{time}, #{username}, #{descs},'1')
+</insert>
+
+<delete id="delRkxx" parameterType="map">
+    delete from chuku where id=#{id}
+</delete>
+
+</mapper>
+

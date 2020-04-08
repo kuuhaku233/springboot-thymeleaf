@@ -9,30 +9,30 @@
     <title>角色管理页面</title>
 
     <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
     <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link rel="stylesheet" th:href="@{/static/css/nifty.min.css}">
+    <link rel="stylesheet" th:href="@{/css/nifty.min.css}">
 
     <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    <link rel="stylesheet" th:href="@{/static/css/demo/nifty-demo-icons.min.css}">
-    <link rel="stylesheet" th:href="@{/static/css/demo/myfonts/iconfont.css}">
+    <link rel="stylesheet" th:href="@{/css/demo/nifty-demo-icons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/demo/myfonts/iconfont.css}">
     <!--Pace - Page Load Progress Par [OPTIONAL]-->
-    <link rel="stylesheet" th:href="@{/static/plugins/pace/pace.min.css}">
-    <script th:src="@{/static/plugins/pace/pace.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/plugins/pace/pace.min.css}">
+    <script th:src="@{/plugins/pace/pace.min.js}"></script>
 
 
     <!--DataTables [ OPTIONAL ]-->
-    <link rel="stylesheet" th:href="@{/static/plugins/datatables/media/css/dataTables.bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/static/plugins/datatables/extensions/Responsive/css/responsive.dataTables.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables/media/css/dataTables.bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables/extensions/Responsive/css/responsive.dataTables.min.css}">
 
     <!--Bootstrap Validator 表单验证-->
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-validator/bootstrapValidator.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-validator/bootstrapValidator.min.css}">
 
     <!-- 引入bootstrap select的css -->
-    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/bootstrap-select.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/bootstrap-select.css}">
 
-    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
 
 
 </head>
@@ -65,7 +65,7 @@
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="demo-pli-home"></i></a></li>
-                    <li><a href="#">系统管理</a></li>
+                    <li>系统管理</a></li>
                     <li class="active">角色管理</li>
                 </ol>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -254,23 +254,23 @@
 <!--jQuery [ REQUIRED ]-->
 
 <!--BootstrapJS [ RECOMMENDED ]-->
-<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <!--NiftyJS [ RECOMMENDED ]-->
-<script th:src="@{/static/js/nifty.min.js}"></script>
+<script th:src="@{/js/nifty.min.js}"></script>
 <!--Demo script [ DEMONSTRATION ]-->
-<!--<script th:src="@{/static/js/demo/nifty-demo.min.js}"></script>-->
+<!--<script th:src="@{/js/demo/nifty-demo.min.js}"></script>-->
 
 
 <!--DataTables [ OPTIONAL ]-->
-<script th:src="@{/static/plugins/datatables/media/js/jquery.dataTables.js}"></script>
-<script th:src="@{/static/plugins/datatables/media/js/dataTables.bootstrap.js}"></script>
-<script th:src="@{/static/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables/media/js/jquery.dataTables.js}"></script>
+<script th:src="@{/plugins/datatables/media/js/dataTables.bootstrap.js}"></script>
+<script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}"></script>
 
-<script th:src="@{/static/plugins/bootbox/bootbox.min.js}"></script>
+<script th:src="@{/plugins/bootbox/bootbox.min.js}"></script>
 
 <!--Bootstrap Validator 表单验证-->
-<script th:src="@{/static/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
-<!--<script th:src="@{/./lib/L2Dwidget.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-validator/bootstrapValidator.min.js}"></script>
+<script th:src="@{/lib/L2Dwidget.min.js}"></script>
 <script type="text/javascript">
     L2Dwidget.init({
         "model": {
@@ -279,10 +279,10 @@
             "scale": 0.8
         }, "display": {
             "position": "left", "width": 200, "height": 270,
-            "hOffset": 40, "vOffset": 20,
+            "hOffset": 30, "vOffset": 20,
 
         }, "mobile": {"show": true, "scale": 0.5},
-        "react": {opacity: 0.8},
+        "react": {opacity: 0.7}, //设置透明度
         dialog: {
             // 开启对话框
             enable: true,
@@ -299,7 +299,7 @@
         }
     });
 
-</script >-->
+</script >
 
 <!--表单验证js-->
 <script>
@@ -441,9 +441,9 @@
                 {
                     data: null,
                     orderable: false,
-                    defaultContent: '<a href="javascript::##" shiro:hasPermission= "../link/update_btn" class="xiugai" ><i class="myfont icon-tianxie"></i></a>' +
-                        '<a href="javascript::##" shiro:hasPermission= "../link/delete_btn" class="shanchu" ><i class="myfont icon-shanchu"></i></a>' +
-                        '<a href="javascript::##" shiro:hasPermission= "../link/delete_btn" class="chakan" ><i class="myfont icon-sousuo"></i></a>'
+                    defaultContent: '<a title="修改"  href="javascript::##" shiro:hasPermission= "../link/update_btn" class="xiugai" ><i class="myfont icon-tianxie"></i></a>' +
+                        '<a title="删除" href="javascript::##" shiro:hasPermission= "../link/delete_btn" class="shanchu" ><i class="myfont icon-shanchu"></i></a>' +
+                        '<a title="查看详情" href="javascript::##" shiro:hasPermission= "../link/delete_btn" class="chakan" ><i class="myfont icon-sousuo"></i></a>'
                 }
             ],
             language: {
@@ -631,11 +631,11 @@
                     orderable: false,//排序
 
                 },
-                {"data": "username",},
+                {"data": "username",orderable: false},
                 {"data": "email", orderable: false},
-                {"data": "phone"},
-                {"data": "register_address",},
-                {"data": "register_time",},
+                {"data": "phone",orderable: false},
+                {"data": "register_address",orderable: false},
+                {"data": "register_time",orderable: false},
                 {"data": "signed", orderable: false},
             ], language: {
                 "sProcessing": "处理中...",

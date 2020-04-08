@@ -41,18 +41,18 @@ public class UserLoginServiceImpl implements UserLoginService {
         user.setPassword(newPass);
         user.setRegister_time(new Timestamp(new Date().getTime()));
         user.setLogin_count("0");
-        String ip = GetIpcofig.getlocalIp(); //内网ip地址
+        /*String ip = GetIpcofig.getlocalIp(); //内网ip地址
         System.out.println("ip" + ip);
         String netip = GetIpcofig.getnetIP();    //外网ip地址
         System.out.println("netip" + netip);
-        GetIpcofig ipconf = new GetIpcofig();
+        GetIpcofig ipconf = new GetIpcofig();*/
         String ipaddress = null; // 获取到完整的地址
         String currIpaddress =null;
-        try {
+      /*  try {
             ipaddress = ipconf.getAddresses("ip=" + netip, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
+        }*/
         if(!StringUtils.isEmpty(ipaddress))
         {
             currIpaddress = ipaddress.substring(4, 14);  //包含 X国家 XX省 XX市
@@ -62,5 +62,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         System.out.println(currIpaddress);
         System.out.println("ipaddress" + ipaddress);
         return userLoginDao.getRegister(user);
+    }
+
+    @Override
+    public Boolean verifyUserName(String username) {
+        User user =userLoginDao.verifyUserName(username);
+                if(user!=null)
+                {
+                    return false;
+                }
+                else {
+                    return true;
+                }
     }
 }

@@ -99,7 +99,7 @@ $(function() {
             barData[i].push(mapData[i][j].value)
         }
     }
-    $.getJSON("/static/js/china.json", function(geoJson) {
+    $.getJSON("/js/china.json", function(geoJson) {
 
         echarts.registerMap('china', geoJson);
         var convertData = function(data) {

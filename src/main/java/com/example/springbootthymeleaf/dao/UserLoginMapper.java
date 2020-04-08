@@ -13,4 +13,6 @@ public interface UserLoginMapper {
     List<User> findAll();
 
     Integer getRegister(User user);
+
+    User verifyUserName(String username);
 }
