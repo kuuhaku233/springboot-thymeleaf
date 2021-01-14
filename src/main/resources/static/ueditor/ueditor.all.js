@@ -1,5 +1,3 @@
-
-
 /*!
  * UEditor
  * version: ueditor
@@ -8003,9 +8001,6 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             var actionName = this.getOpt(action) || action,
                 imageUrl = this.getOpt('imageUrl'),
                 serverUrl = this.getOpt('serverUrl');
-            if(action.indexOf("/")>-1){
-                return actionName;
-            }
 
             if(!serverUrl && imageUrl) {
                 serverUrl = imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2');
@@ -24593,7 +24588,186 @@ UE.plugin.register('simpleupload', function (){
         }
     }
 });
+    /**
+     * word解析
+     */
+    UE.plugin.register('importword', function (){
+        var me = this,
+            isLoaded = false,
+            containerBtn;
 
+        function initUploadBtn(){
+            var w = containerBtn.offsetWidth || 20,
+                h = containerBtn.offsetHeight || 20,
+                btnIframe = document.createElement('iframe'),
+                btnStyle = 'display:block;width:' + w + 'px;height:' + h + 'px;overflow:hidden;border:0;margin:0;padding:0;position:absolute;top:0;left:0;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity: 0;opacity: 0;cursor:pointer;';
+
+            domUtils.on(btnIframe, 'load', function(){
+
+                var timestrap = (+new Date()).toString(36),
+                    wrapper,
+                    btnIframeDoc,
+                    btnIframeBody;
+
+                btnIframeDoc = (btnIframe.contentDocument || btnIframe.contentWindow.document);
+                btnIframeBody = btnIframeDoc.body;
+                wrapper = btnIframeDoc.createElement('div');
+
+                wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
+                    'style="' + btnStyle + '">' +
+                    '<input id="edui_input_' + timestrap + '" type="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"  name="' + me.options.importwordFieldName + '" ' +
+                    'style="' + btnStyle + '">' +
+                    '</form>' +
+                    '<iframe id="edui_iframe_' + timestrap + '" name="edui_iframe_' + timestrap + '" style="display:none;width:0;height:0;border:0;margin:0;padding:0;position:absolute;"></iframe>';
+
+                wrapper.className = 'edui-' + me.options.theme;
+                wrapper.id = me.ui.id + '_iframeupload';
+                btnIframeBody.style.cssText = btnStyle;
+                btnIframeBody.style.width = w + 'px';
+                btnIframeBody.style.height = h + 'px';
+                btnIframeBody.appendChild(wrapper);
+
+                if (btnIframeBody.parentNode) {
+                    btnIframeBody.parentNode.style.width = w + 'px';
+                    btnIframeBody.parentNode.style.height = w + 'px';
+                }
+
+                var form = btnIframeDoc.getElementById('edui_form_' + timestrap);
+                var input = btnIframeDoc.getElementById('edui_input_' + timestrap);
+                var iframe = btnIframeDoc.getElementById('edui_iframe_' + timestrap);
+
+                domUtils.on(input, 'change', function(){
+                    if(!input.value) return;
+                    var loadingId = 'loading_' + (+new Date()).toString(36);
+                    var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
+                    var importwordUrl = me.getActionUrl(me.getOpt('importwordActionName'));
+                    me.focus();
+                    var load = document.createElement('div')
+                    load.style = 'display: block;';
+                    load.className = 'edui-message edui-default';
+                    load.innerHTML = '<div class="edui-message-body edui-message-type-info edui-default"> <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent;" frameborder="0" width="100%" height="100%" src="about:blank" class="edui-default"></iframe> <div class="edui-shadow edui-default"></div> <div class="edui-message-content edui-default">转换中...</div> </div>';
+                    var message = document.getElementById('edui1_message_holder');
+                    function callback(){
+                        try{
+                            message.removeChild(load);
+                            var json;
+                            var body = (iframe.contentDocument || iframe.contentWindow.document).body,
+                                result = body.innerText || body.textContent || '';
+                            json = (new Function("return " + result))();
+                            me.setEnabled();
+                            if(json.state == 'SUCCESS') {
+                                // var content=json.content;
+                                var content = json.content.replace(/#<#/g, "<")
+                                    .replace(/#>#/g, ">")
+                                    .replace(/#@@#/g, '"')
+                                    .replace(/#@#/g, "'");
+                                me.execCommand('inserthtml',content);
+                                me.fireEvent('showmessage', {
+                                    'id': loadingId,
+                                    'content': '转换成功',
+                                    'timeout': 3000
+                                });
+                            } else {
+                                showErrorLoader && showErrorLoader(json.state);
+                            }
+                        }catch(er){
+                            showErrorLoader && showErrorLoader(me.getLang('importword.parseError'));
+                            me.setEnabled();
+                        }
+                        form.reset();
+                        domUtils.un(iframe, 'load', callback);
+                    }
+                    function showErrorLoader(title){
+                        me.fireEvent('showmessage', {
+                            'id': loadingId,
+                            'content': title,
+                            'type': 'error',
+                            'timeout': 4000
+                        });
+                    }
+
+                    /* 判断后端配置是否没有加载成功 */
+                    if (!me.getOpt('importwordActionName')) {
+                        errorHandler(me.getLang('autoupload.errorLoadConfig'));
+                        return;
+                    }
+                    var allowFiles = ['.doc','.docx'];
+                    // 判断文件格式是否错误
+                    var filename = input.value,
+                        fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
+                    if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
+                        showErrorLoader(me.getLang('importword.exceedTypeError'));
+                        return;
+                    }
+                    var maxSize = me.getOpt('importwordMaxSize');
+                    var fileSize = input.files[0].size;
+                    if(fileSize>maxSize){
+                        alert("文件太大");
+                        showErrorLoader(me.getLang('importword.exceedSizeError'));
+                        return;
+                    }
+                    message.appendChild(load);
+                    me.setDisabled();
+                    domUtils.on(iframe, 'load', callback);
+                    form.action = utils.formatUrl(importwordUrl + (importwordUrl.indexOf('?') == -1 ? '?':'&') + params);
+                    form.submit();
+                });
+
+                var stateTimer;
+                me.addListener('selectionchange', function () {
+                    clearTimeout(stateTimer);
+                    stateTimer = setTimeout(function() {
+                        var state = me.queryCommandState('importword');
+                        if (state == -1) {
+                            input.disabled = 'disabled';
+                        } else {
+                            input.disabled = false;
+                        }
+                    }, 400);
+                });
+                isLoaded = true;
+            });
+
+            btnIframe.style.cssText = btnStyle;
+            containerBtn.appendChild(btnIframe);
+        }
+
+        return {
+            bindEvents:{
+                'ready': function() {
+                    //设置loading的样式
+                    utils.cssRule('loading',
+                        '.loadingclass{display:inline-block;cursor:default;background: url(\''
+                        + this.options.themePath
+                        + this.options.theme +'/images/loading.gif\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;}\n' +
+                        '.loaderrorclass{display:inline-block;cursor:default;background: url(\''
+                        + this.options.themePath
+                        + this.options.theme +'/images/loaderror.png\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;' +
+                        '}',
+                        this.document);
+                },
+                /* 初始化简单上传按钮 */
+                'importwordbtnready': function(type, container) {
+                    containerBtn = container;
+                    me.afterConfigReady(initUploadBtn);
+                }
+            },
+            outputRule: function(root){
+                utils.each(root.getNodesByTagName('img'),function(n){
+                    if (/\b(loaderrorclass)|(bloaderrorclass)\b/.test(n.getAttr('class'))) {
+                        n.parentNode.removeChild(n);
+                    }
+                });
+            },
+            commands: {
+                'importword': {
+                    queryCommandState: function () {
+                        return isLoaded ? 0:-1;
+                    }
+                }
+            }
+        }
+    });
 // plugins/serverparam.js
 /**
  * 服务器提交的额外参数列表设置插件
@@ -24766,7 +24940,9 @@ UE.plugin.register('insertfile', function (){
                             '<a style="font-size:12px; color:#0066cc;" href="' + item.url +'" title="' + title + '">' + title + '</a>' +
                             '</p>';
                     }
+                    me.fireEvent('afterUpfile',filelist);
                     me.execCommand('insertHtml', html);
+                    // me.fireEvent('afterUpfile',filelist);
                 }
             }
         }
@@ -28504,6 +28680,36 @@ UE.ui = baidu.editor.ui = {};
         });
         return ui;
     };
+    /* word解析导入插件 */
+    editorui["importword"] = function (editor) {
+        var name = 'importword',
+            ui = new editorui.Button({
+                className:'edui-for-' + name,
+                title:editor.options.labelMap[name] || editor.getLang("labelMap." + name) || '',
+                onclick:function () {},
+                theme:editor.options.theme,
+                showText:false
+            });
+        editorui.buttons[name] = ui;
+        editor.addListener('ready', function() {
+            var b = ui.getDom('body'),
+                iconSpan = b.children[0];
+            editor.fireEvent('importwordbtnready', iconSpan);
+        });
+        editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
+            var state = editor.queryCommandState(name);
+            if (state == -1) {
+                ui.setDisabled(true);
+                ui.setChecked(false);
+            } else {
+                if (!uiReady) {
+                    ui.setDisabled(false);
+                    ui.setChecked(state);
+                }
+            }
+        });
+        return ui;
+    };
 
 })();
 
@@ -28945,8 +29151,11 @@ UE.ui = baidu.editor.ui = {};
                 if (baidu.editor.browser.gecko) {
                     var bk = editor.selection.getRange().createBookmark();
                 }
+                // ueditor在模态框全屏
                 if (fullscreen) {
                     while (container.tagName != "BODY") {
+                        var position = baidu.editor.dom.domUtils.getComputedStyle(container, "position");
+                        nodeStack.push(position);
                         var isModal = false;
                         //判断该dom是否为modal
                         var classes = $(container).attr('class');
@@ -28958,9 +29167,7 @@ UE.ui = baidu.editor.ui = {};
                                 }
                             }
                         }
-                        var position = baidu.editor.dom.domUtils.getComputedStyle(container, "position");
-                        nodeStack.push(position);
-                        container.style.position = "static";
+                        //如果是modal,则不设置position为static
                         if (!isModal) {
                             container.style.position = "static";
                         }

@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
-@Controller
+@RestController
 public class FhglController extends BaseController{
     @Autowired
     FhglService fhglService;
@@ -24,7 +25,6 @@ public class FhglController extends BaseController{
 
     @ALog(desc="查询发货订单")
     @RequestMapping("/selectfhxx")
-    @ResponseBody
     public List<Map<String,Object>> selecck()
     {
         return fhglService.listAll();
@@ -32,7 +32,6 @@ public class FhglController extends BaseController{
 
     @ALog(desc="添加发货信息")
     @RequestMapping("/insertYj")
-    @ResponseBody
     public Boolean insertYj(HttpServletRequest request, HttpSession sess)
     {
         Map<String, Object> params = getParams(request);
@@ -48,7 +47,6 @@ public class FhglController extends BaseController{
 
     @ALog(desc="删除发货订单")
     @RequestMapping("/deleteYj")
-    @ResponseBody
     public Boolean deleteYj(HttpServletRequest request)
     {
         Map<String, Object> params = getParams(request);
@@ -57,7 +55,6 @@ public class FhglController extends BaseController{
 
     @ALog(desc="确认发货")
     @RequestMapping("/curYj")
-    @ResponseBody
     public Boolean curYj (HttpServletRequest request)
     {
         Map<String, Object> params = getParams(request);
@@ -66,7 +63,6 @@ public class FhglController extends BaseController{
 
     @ALog(desc="修改发货信息")
     @RequestMapping("/updateYj")
-    @ResponseBody
     public Boolean updateYj (HttpServletRequest request)
     {
         Map<String, Object> params = getParams(request);

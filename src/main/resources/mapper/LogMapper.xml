@@ -29,7 +29,6 @@
                 FROM
                     role r
                     INNER JOIN log l ON r.rid = l.roleid
-
     </select>
 
     <insert id="saveLog">

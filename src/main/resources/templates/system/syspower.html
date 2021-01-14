@@ -224,7 +224,7 @@
     <!-- 引入bootstrap select的插件-->
     <script th:src="@{/plugins/bootstrap-select/bootstrap-select.js}"></script>
     <!-- Live2D 看板动画-->
-    <script th:src="@{/lib/L2Dwidget.min.js}"></script>
+   <!-- <script th:src="@{/lib/L2Dwidget.min.js}"></script>
     <script type="text/javascript">
         L2Dwidget.init({
             "model": {
@@ -254,7 +254,8 @@
         });
 
     </script>
-
+-->
+    <th:block th:include="common/live2d"></th:block>
     <!--<%表单验证js%>-->
     <!--<script>
         $(function () {

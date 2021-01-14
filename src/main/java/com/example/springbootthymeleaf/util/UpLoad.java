@@ -19,10 +19,8 @@ public class UpLoad {
         try {
 			file.transferTo(newFile);
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

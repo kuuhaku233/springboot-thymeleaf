@@ -58,6 +58,7 @@ public class LogAspect {
         System.out.println(log);
     }
 */
+
     @Around("pointcut()")
     public Object aroundLog(ProceedingJoinPoint point) throws Throwable
     {
@@ -70,7 +71,7 @@ public class LogAspect {
        ALog aLog=method.getAnnotation(ALog.class);
         // 获取操作描述的属性值
         String desc = aLog.desc();
-        log.setTitle(desc);
+        log.setTitle(desc+"");
         User user = (User) request.getSession().getAttribute("user");
         if(user==null)
         {

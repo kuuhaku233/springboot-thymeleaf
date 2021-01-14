@@ -52,5 +52,20 @@ where state=2
     delete from ruku where id=#{id}
 </delete>
 
+    <select id="selectChange" resultType="map">
+        SELECT
+	date_format( time, '%Y-%m-%d %H:%i:%S' ) time,
+	id,
+	lastStation,
+	nextStation,
+	username,
+	state,
+	`descs`
+
+FROM
+	ruku
+where state=2 and id=#{id}
+    </select>
+
 </mapper>
 

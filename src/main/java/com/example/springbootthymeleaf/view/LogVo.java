@@ -1,6 +1,7 @@
 package com.example.springbootthymeleaf.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +10,11 @@ public class LogVo implements Serializable {
     private Integer id;
     private String title;
     private String url;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonIgnore
     private Date end_time;
     private String username;
+    @JsonIgnore
     private String roleid;
 
     public String getRoleid() {

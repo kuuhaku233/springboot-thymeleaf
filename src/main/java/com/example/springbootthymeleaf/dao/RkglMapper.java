@@ -13,4 +13,6 @@ public interface RkglMapper {
     Integer delRkxx(Map<String, Object> params);
 
     Integer updateRk(Map<String, Object> params);
+
+    List<Map<String, Object>> selectChange(Integer id);
 }

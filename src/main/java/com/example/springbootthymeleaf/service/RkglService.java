@@ -14,4 +14,6 @@ public interface RkglService {
 
     Boolean updateRk(Map<String, Object> params);
 
+    List<Map<String,Object>> selectChange(Integer id);
+
 }

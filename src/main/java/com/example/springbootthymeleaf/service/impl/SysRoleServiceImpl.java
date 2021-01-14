@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaf.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springbootthymeleaf.dao.SysRoleMapper;
 import com.example.springbootthymeleaf.pojo.Role;
 import com.example.springbootthymeleaf.pojo.User;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SysRoleServiceImpl implements SysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper,Role> implements SysRoleService {
     @Autowired
     private SysRoleMapper sysRoleDao;
     @Override

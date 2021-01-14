@@ -2,6 +2,7 @@ package com.example.springbootthymeleaf.controller;
 
 import com.example.springbootthymeleaf.annotation.ALog;
 import com.example.springbootthymeleaf.service.CkglService;
+import com.example.springbootthymeleaf.service.LogService;
 import com.example.springbootthymeleaf.service.RkglService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class RkglController extends BaseController{
     RkglService rkglService;
     @Autowired
     CkglService ckglService;
+    @Autowired
+    LogService logService;
     @ALog(desc="查询入库信息")
     @RequestMapping("/rkgl")
     @ResponseBody
@@ -33,8 +36,12 @@ public class RkglController extends BaseController{
     @ResponseBody
     public Boolean UpdateById(HttpServletRequest request)
     {
+        Integer id =Integer.parseInt(request.getParameter("id"));
+        List<Map<String, Object>> maps = rkglService.selectChange(id);
         Map<String, Object> params = getParams(request);
         Boolean aBoolean = rkglService.UpdateById(params);
+        List<Map<String, Object>> newMap = rkglService.selectChange(id);
+//        String desc="改变前的"
         return aBoolean;
     }
 
@@ -43,6 +50,8 @@ public class RkglController extends BaseController{
     @ResponseBody
     public Boolean addRkxx(HttpServletRequest request)
     {
+
+
         Map<String, Object> params = getParams(request);
         Boolean aBoolean = rkglService.addRkxx(params);
         return aBoolean;

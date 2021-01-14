@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaf.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.springbootthymeleaf.pojo.Role;
 import com.example.springbootthymeleaf.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-public interface SysRoleMapper {
+public interface SysRoleMapper extends BaseMapper<Role> {
 
     //查询所有角色
     List<Role> getRoles();

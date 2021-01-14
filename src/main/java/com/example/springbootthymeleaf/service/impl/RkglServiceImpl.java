@@ -59,4 +59,9 @@ public class RkglServiceImpl implements RkglService {
         return false;
     }
 
+    @Override
+    public List<Map<String, Object>> selectChange(Integer id) {
+        return rkglMapper.selectChange(id);
+    }
+
 }

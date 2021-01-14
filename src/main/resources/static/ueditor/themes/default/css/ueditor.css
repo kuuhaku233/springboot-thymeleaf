@@ -1901,3 +1901,7 @@ div.edui-box {
 .edui-default  .edui-pastecontainer .edui-button  .edui-state-hover .edui-plaintxticon{
     background-position: -72px -34px;
 }
+/* word解析 css */
+.edui-default .edui-for-importword .edui-icon{
+    background-position: -300px -40px;
+}

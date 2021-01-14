@@ -1,7 +1,11 @@
 package com.example.springbootthymeleaf.pojo;
 
 
-public class Role {
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+public class Role extends Model<Role> {
+    @TableId
     private Integer rid;
     private String rname;
     private String rbianma;

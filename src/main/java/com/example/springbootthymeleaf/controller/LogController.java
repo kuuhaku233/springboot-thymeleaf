@@ -7,6 +7,7 @@ import com.example.springbootthymeleaf.view.LogVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,11 +19,11 @@ public class LogController {
     @Autowired
     LogService logService;
 
-    @RequestMapping("getLogs")
+    @RequestMapping(value = "getLogs",method={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     @ALog(desc="查看日志")
     public List<LogVo> getLogs(@RequestParam(defaultValue = "",required = false) String search) {
-        System.out.println(search);
+//        System.out.println(search);
         return logService.getLogs();
     }
 
