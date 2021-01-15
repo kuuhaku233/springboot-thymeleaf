@@ -45,8 +45,8 @@ public class LogServiceImpl extends ServiceImpl<LogMapper,Log> implements LogSer
     @Override
     public IPage<LogVo> findLogeByPage(String pageSize, String currPage) {
         QueryWrapper<Log> queryWrapper = new QueryWrapper();
-        Page<LogVo> result = new Page<>(Long.parseLong(currPage), Long.parseLong(pageSize));
-        IPage<LogVo> logs = logMapper.getLogs(result);
+        Page<LogVo> page = new Page<>(Long.parseLong(currPage), Long.parseLong(pageSize));
+        IPage<LogVo> logs = logMapper.getLogs(page);
 //        List<Log> list = list(queryWrapper);
 //        List<LogVo> result = new ArrayList<>();
 //        list.stream().forEach(log -> {

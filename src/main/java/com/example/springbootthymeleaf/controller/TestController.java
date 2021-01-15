@@ -7,12 +7,11 @@ import com.example.springbootthymeleaf.service.LogService;
 import com.example.springbootthymeleaf.view.LogVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 测试
@@ -48,14 +47,15 @@ public class TestController extends BaseController {
     }
 
     @GetMapping("/getLogById")
-    public ResponseData<Log> getLogById( @Validated Integer id) {
+    public ResponseData<Log> getLogById( @RequestBody  @NotBlank(message = "id不能为空") String id) {
 //        List<LogVo> logeByPage = logService.findLogeByPage(pageSize,currPage);
-        Log logById = logService.findLogById(id.toString());
+        Log logById = logService.findLogById(id);
         return new ResponseData(logById);
     }
 
     @PostMapping("/saveLog")
-    public ResponseData saveLog(Log log) {
+    // @Valid 用于校验实体类
+    public ResponseData saveLog(@Valid Log log) {
         return new ResponseData(logService.saveLog(log));
     }
 }

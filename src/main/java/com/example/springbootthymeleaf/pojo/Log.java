@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,15 +23,18 @@ import java.util.Date;
 @NoArgsConstructor
 public class Log extends Model<Log> implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
-    @Pattern(regexp = "^[1-9]\\d*|0$",message = "只能为正整数")
     private Integer id;
     @NotBlank(message = "标题不能为空")
     private String title;
+    @NotBlank(message = "url不能为空")
     private String url;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date end_time;
     private String username;
     private String exception;
+    @NotBlank(message = "roleid不能为空")
+    @Size(max = 50, message = "roleid，最大长度为50")
+    @Pattern(regexp = "^[1-8]$", message = "roleid 数值非法")
     private Integer roleid;
 
 
