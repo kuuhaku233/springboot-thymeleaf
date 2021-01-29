@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootthymeleaf.view.dao.PowerDao">
+
+    <resultMap type="com.example.springbootthymeleaf.view.entity.Power" id="PowerMap">
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="rid" column="rid" jdbcType="INTEGER"/>
+        <result property="reid" column="reid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PowerMap">
+        select pid,
+               rid,
+               reid
+        from kdzz.power
+        where pid = #{pid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PowerMap">
+        select pid,
+               rid,
+               reid
+        from kdzz.power
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PowerMap">
+        select
+        pid, rid, reid
+        from kdzz.power
+        <where>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="rid != null">
+                and rid = #{rid}
+            </if>
+            <if test="reid != null">
+                and reid = #{reid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="pid" useGeneratedKeys="true">
+        insert into kdzz.power(rid, reid)
+        values (#{rid}, #{reid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="pid" useGeneratedKeys="true">
+        insert into kdzz.power(rid, reid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rid}, #{entity.reid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="pid" useGeneratedKeys="true">
+        insert into kdzz.power(rid, reid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rid}, #{entity.reid})
+        </foreach>
+        on duplicate key update
+        rid = values(rid) , reid = values(reid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update kdzz.power
+        <set>
+            <if test="rid != null">
+                rid = #{rid},
+            </if>
+            <if test="reid != null">
+                reid = #{reid},
+            </if>
+        </set>
+        where pid = #{pid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from kdzz.power
+        where pid = #{pid}
+    </delete>
+
+</mapper>

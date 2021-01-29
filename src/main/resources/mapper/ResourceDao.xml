@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootthymeleaf.view.dao.ResourceDao">
+
+    <resultMap type="com.example.springbootthymeleaf.view.entity.Resource" id="ResourceMap">
+        <result property="reid" column="reid" jdbcType="INTEGER"/>
+        <result property="resourcename" column="resourcename" jdbcType="VARCHAR"/>
+        <result property="relink" column="relink" jdbcType="VARCHAR"/>
+        <result property="rebianhao" column="rebianhao" jdbcType="VARCHAR"/>
+        <result property="rejigouid" column="rejigouid" jdbcType="INTEGER"/>
+        <result property="reopjigouid" column="reopjigouid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ResourceMap">
+        select reid,
+               resourcename,
+               relink,
+               rebianhao,
+               rejigouid,
+               reopjigouid
+        from kdzz.resource
+        where reid = #{reid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ResourceMap">
+        select reid,
+               resourcename,
+               relink,
+               rebianhao,
+               rejigouid,
+               reopjigouid
+        from kdzz.resource
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ResourceMap">
+        select
+        reid, resourcename, relink, rebianhao, rejigouid, reopjigouid
+        from kdzz.resource
+        <where>
+            <if test="reid != null">
+                and reid = #{reid}
+            </if>
+            <if test="resourcename != null and resourcename != ''">
+                and resourcename = #{resourcename}
+            </if>
+            <if test="relink != null and relink != ''">
+                and relink = #{relink}
+            </if>
+            <if test="rebianhao != null and rebianhao != ''">
+                and rebianhao = #{rebianhao}
+            </if>
+            <if test="rejigouid != null">
+                and rejigouid = #{rejigouid}
+            </if>
+            <if test="reopjigouid != null">
+                and reopjigouid = #{reopjigouid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="reid" useGeneratedKeys="true">
+        insert into kdzz.resource(resourcename, relink, rebianhao, rejigouid, reopjigouid)
+        values (#{resourcename}, #{relink}, #{rebianhao}, #{rejigouid}, #{reopjigouid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="reid" useGeneratedKeys="true">
+        insert into kdzz.resource(resourcename, relink, rebianhao, rejigouid, reopjigouid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.resourcename}, #{entity.relink}, #{entity.rebianhao}, #{entity.rejigouid}, #{entity.reopjigouid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="reid" useGeneratedKeys="true">
+        insert into kdzz.resource(resourcename, relink, rebianhao, rejigouid, reopjigouid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.resourcename}, #{entity.relink}, #{entity.rebianhao}, #{entity.rejigouid}, #{entity.reopjigouid})
+        </foreach>
+        on duplicate key update
+        resourcename = values(resourcename) , relink = values(relink) , rebianhao = values(rebianhao) , rejigouid =
+        values(rejigouid) , reopjigouid = values(reopjigouid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update kdzz.resource
+        <set>
+            <if test="resourcename != null and resourcename != ''">
+                resourcename = #{resourcename},
+            </if>
+            <if test="relink != null and relink != ''">
+                relink = #{relink},
+            </if>
+            <if test="rebianhao != null and rebianhao != ''">
+                rebianhao = #{rebianhao},
+            </if>
+            <if test="rejigouid != null">
+                rejigouid = #{rejigouid},
+            </if>
+            <if test="reopjigouid != null">
+                reopjigouid = #{reopjigouid},
+            </if>
+        </set>
+        where reid = #{reid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from kdzz.resource
+        where reid = #{reid}
+    </delete>
+
+</mapper>

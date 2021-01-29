@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootthymeleaf.view.dao.RoleDao">
+
+    <resultMap type="com.example.springbootthymeleaf.view.entity.Role" id="RoleMap">
+        <result property="rid" column="rid" jdbcType="INTEGER"/>
+        <result property="rname" column="rname" jdbcType="VARCHAR"/>
+        <result property="rbianma" column="rbianma" jdbcType="VARCHAR"/>
+        <result property="oid" column="oid" jdbcType="INTEGER"/>
+        <result property="ruser" column="ruser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMap">
+        select rid,
+               rname,
+               rbianma,
+               oid,
+               ruser
+        from kdzz.role
+        where rid = #{rid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select rid,
+               rname,
+               rbianma,
+               oid,
+               ruser
+        from kdzz.role
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMap">
+        select
+        rid, rname, rbianma, oid, ruser
+        from kdzz.role
+        <where>
+            <if test="rid != null">
+                and rid = #{rid}
+            </if>
+            <if test="rname != null and rname != ''">
+                and rname = #{rname}
+            </if>
+            <if test="rbianma != null and rbianma != ''">
+                and rbianma = #{rbianma}
+            </if>
+            <if test="oid != null">
+                and oid = #{oid}
+            </if>
+            <if test="ruser != null and ruser != ''">
+                and ruser = #{ruser}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="rid" useGeneratedKeys="true">
+        insert into kdzz.role(rname, rbianma, oid, ruser)
+        values (#{rname}, #{rbianma}, #{oid}, #{ruser})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="rid" useGeneratedKeys="true">
+        insert into kdzz.role(rname, rbianma, oid, ruser)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rname}, #{entity.rbianma}, #{entity.oid}, #{entity.ruser})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="rid" useGeneratedKeys="true">
+        insert into kdzz.role(rname, rbianma, oid, ruser)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rname}, #{entity.rbianma}, #{entity.oid}, #{entity.ruser})
+        </foreach>
+        on duplicate key update
+        rname = values(rname) , rbianma = values(rbianma) , oid = values(oid) , ruser = values(ruser)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update kdzz.role
+        <set>
+            <if test="rname != null and rname != ''">
+                rname = #{rname},
+            </if>
+            <if test="rbianma != null and rbianma != ''">
+                rbianma = #{rbianma},
+            </if>
+            <if test="oid != null">
+                oid = #{oid},
+            </if>
+            <if test="ruser != null and ruser != ''">
+                ruser = #{ruser},
+            </if>
+        </set>
+        where rid = #{rid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from kdzz.role
+        where rid = #{rid}
+    </delete>
+
+</mapper>

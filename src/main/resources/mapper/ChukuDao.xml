@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootthymeleaf.view.dao.ChukuDao">
+
+    <resultMap type="com.example.springbootthymeleaf.view.entity.Chuku" id="ChukuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="laststation" column="lastStation" jdbcType="VARCHAR"/>
+        <result property="nextstation" column="nextStation" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="descs" column="descs" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ChukuMap">
+        select id,
+               lastStation,
+               nextStation,
+               time,
+               username,
+               descs,
+               state
+        from kdzz.chuku
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ChukuMap">
+        select id,
+               lastStation,
+               nextStation,
+               time,
+               username,
+               descs,
+               state
+        from kdzz.chuku
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ChukuMap">
+        select
+        id, lastStation, nextStation, time, username, descs, state
+        from kdzz.chuku
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="laststation != null and laststation != ''">
+                and lastStation = #{laststation}
+            </if>
+            <if test="nextstation != null and nextstation != ''">
+                and nextStation = #{nextstation}
+            </if>
+            <if test="time != null">
+                and time = #{time}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="descs != null and descs != ''">
+                and descs = #{descs}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into kdzz.chuku(lastStation, nextStation, time, username, descs, state)
+        values (#{laststation}, #{nextstation}, #{time}, #{username}, #{descs}, #{state})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into kdzz.chuku(lastStation, nextStation, time, username, descs, state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.laststation}, #{entity.nextstation}, #{entity.time}, #{entity.username}, #{entity.descs},
+            #{entity.state})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into kdzz.chuku(lastStation, nextStation, time, username, descs, state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.laststation}, #{entity.nextstation}, #{entity.time}, #{entity.username}, #{entity.descs},
+            #{entity.state})
+        </foreach>
+        on duplicate key update
+        lastStation = values(lastStation) , nextStation = values(nextStation) , time = values(time) , username =
+        values(username) , descs = values(descs) , state = values(state)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update kdzz.chuku
+        <set>
+            <if test="laststation != null and laststation != ''">
+                lastStation = #{laststation},
+            </if>
+            <if test="nextstation != null and nextstation != ''">
+                nextStation = #{nextstation},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="descs != null and descs != ''">
+                descs = #{descs},
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from kdzz.chuku
+        where id = #{id}
+    </delete>
+
+</mapper>

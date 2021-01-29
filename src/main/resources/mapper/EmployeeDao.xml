@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootthymeleaf.view.dao.EmployeeDao">
+
+    <resultMap type="com.example.springbootthymeleaf.view.entity.Employee" id="EmployeeMap">
+        <result property="firstName" column="FIRST_NAME" jdbcType="VARCHAR"/>
+        <result property="lastName" column="LAST_NAME" jdbcType="VARCHAR"/>
+        <result property="age" column="AGE" jdbcType="INTEGER"/>
+        <result property="sex" column="SEX" jdbcType="VARCHAR"/>
+        <result property="income" column="INCOME" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EmployeeMap">
+        select FIRST_NAME,
+               LAST_NAME,
+               AGE,
+               SEX,
+               INCOME
+        from kdzz.employee
+        where = #{}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EmployeeMap">
+        select FIRST_NAME,
+               LAST_NAME,
+               AGE,
+               SEX,
+               INCOME
+        from kdzz.employee
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EmployeeMap">
+        select
+        FIRST_NAME, LAST_NAME, AGE, SEX, INCOME
+        from kdzz.employee
+        <where>
+            <if test="firstName != null and firstName != ''">
+                and FIRST_NAME = #{firstName}
+            </if>
+            <if test="lastName != null and lastName != ''">
+                and LAST_NAME = #{lastName}
+            </if>
+            <if test="age != null">
+                and AGE = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                and SEX = #{sex}
+            </if>
+            <if test="income != null">
+                and INCOME = #{income}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into kdzz.employee(FIRST_NAME, LAST_NAME, AGE, SEX, INCOME)
+        values (#{firstName}, #{lastName}, #{age}, #{sex}, #{income})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into kdzz.employee(FIRST_NAME, LAST_NAME, AGE, SEX, INCOME)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.firstName}, #{entity.lastName}, #{entity.age}, #{entity.sex}, #{entity.income})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into kdzz.employee(FIRST_NAME, LAST_NAME, AGE, SEX, INCOME)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.firstName}, #{entity.lastName}, #{entity.age}, #{entity.sex}, #{entity.income})
+        </foreach>
+        on duplicate key update
+        FIRST_NAME = values(FIRST_NAME) , LAST_NAME = values(LAST_NAME) , AGE = values(AGE) , SEX = values(SEX) , INCOME
+        = values(INCOME)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update kdzz.employee
+        <set>
+            <if test="firstName != null and firstName != ''">
+                FIRST_NAME = #{firstName},
+            </if>
+            <if test="lastName != null and lastName != ''">
+                LAST_NAME = #{lastName},
+            </if>
+            <if test="age != null">
+                AGE = #{age},
+            </if>
+            <if test="sex != null and sex != ''">
+                SEX = #{sex},
+            </if>
+            <if test="income != null">
+                INCOME = #{income},
+            </if>
+        </set>
+        where = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from kdzz.employee
+        where = #{}
+    </delete>
+
+</mapper>

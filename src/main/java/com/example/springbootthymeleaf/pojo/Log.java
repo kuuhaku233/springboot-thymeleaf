@@ -34,7 +34,7 @@ public class Log extends Model<Log> implements Serializable {
     private String exception;
     @NotBlank(message = "roleid不能为空")
     @Size(max = 50, message = "roleid，最大长度为50")
-    @Pattern(regexp = "^[1-8]$", message = "roleid 数值非法")
+    @Pattern(regexp = "^[1-9]$", message = "roleid 数值非法")
     private Integer roleid;
 
 
